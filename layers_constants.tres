@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://layers_constants.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+player_layer = 1
+player_mask = 6
+block_layer = 2
+block_mask = 7
+statics_layer = 4
+statics_mask = 7

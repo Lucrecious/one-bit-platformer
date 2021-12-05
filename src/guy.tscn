@@ -1,0 +1,499 @@
+[gd_scene load_steps=54 format=2]
+
+[ext_resource path="res://lut/components/root_sprite.gd" type="Script" id=1]
+[ext_resource path="res://lut/components/extents.gd" type="Script" id=2]
+[ext_resource path="res://assets/guy_sprite.png" type="Texture" id=3]
+[ext_resource path="res://lut/components/velocity.gd" type="Script" id=4]
+[ext_resource path="res://lut/components/gravity.gd" type="Script" id=5]
+[ext_resource path="res://lut/input/controller.gd" type="Script" id=6]
+[ext_resource path="res://deafult_input_binding.tres" type="Resource" id=7]
+[ext_resource path="res://lut/components/run.gd" type="Script" id=8]
+[ext_resource path="res://lut/input/user_input.gd" type="Script" id=9]
+[ext_resource path="res://lut/components/jump.gd" type="Script" id=10]
+[ext_resource path="res://lut/components/turner.gd" type="Script" id=11]
+[ext_resource path="res://lut/components/priority_animation.gd" type="Script" id=12]
+[ext_resource path="res://lut/signal_expression.gd" type="Script" id=13]
+[ext_resource path="res://lut/components/wall_grip.gd" type="Script" id=14]
+[ext_resource path="res://lut/components/disabler.gd" type="Script" id=15]
+[ext_resource path="res://src/air_x_movement_parameters.tres" type="Resource" id=16]
+[ext_resource path="res://lut/components/turner_listener.gd" type="Script" id=17]
+
+[sub_resource type="CapsuleShape2D" id=31]
+radius = 2.0
+height = 10.0
+
+[sub_resource type="Animation" id=35]
+resource_name = "fall"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("RootSprite/AnimatedSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RootSprite/AnimatedSprite:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "fall" ]
+}
+
+[sub_resource type="Animation" id=33]
+resource_name = "idle"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("RootSprite/AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "idle" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RootSprite/AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=36]
+resource_name = "jump_up"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("RootSprite/AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "jump_up" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RootSprite/AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=34]
+resource_name = "run"
+length = 0.8
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("RootSprite/AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "run" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RootSprite/AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 4, 5, 6, 7, 0, 1, 2 ]
+}
+
+[sub_resource type="Animation" id=37]
+resource_name = "to_fall"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("RootSprite/AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "to_jump_down" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RootSprite/AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=38]
+resource_name = "wall_grip"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("RootSprite/AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "wall_slide" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RootSprite/AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=39]
+resource_name = "wall_run"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("RootSprite/AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "run_wall" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RootSprite/AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+}
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 3 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 3 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 3 )
+region = Rect2( 80, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 3 )
+region = Rect2( 48, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 3 )
+region = Rect2( 80, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 3 )
+region = Rect2( 16, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 3 )
+region = Rect2( 48, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 3 )
+region = Rect2( 80, 16, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 3 )
+region = Rect2( 16, 48, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 48, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 3 )
+region = Rect2( 48, 48, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 48, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 3 )
+region = Rect2( 80, 48, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 64, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 3 )
+region = Rect2( 16, 64, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 64, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 3 )
+region = Rect2( 16, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 48, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=30]
+animations = [ {
+"frames": [ SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 4 ), SubResource( 5 ) ],
+"loop": true,
+"name": "fall",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 6 ), SubResource( 7 ) ],
+"loop": false,
+"name": "to_jump_down",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ) ],
+"loop": true,
+"name": "run",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
+"loop": true,
+"name": "run_wall",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 24 ), SubResource( 25 ) ],
+"loop": false,
+"name": "jump_up",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 3 ) ],
+"loop": true,
+"name": "wall_slide",
+"speed": 5.0
+} ]
+
+[node name="Guy" type="KinematicBody2D"]
+collision_mask = 0
+
+[node name="CollisionExtents" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 1 )
+shape = SubResource( 31 )
+script = ExtResource( 2 )
+
+[node name="PriorityAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/fall = SubResource( 35 )
+anims/idle = SubResource( 33 )
+anims/jump_up = SubResource( 36 )
+anims/run = SubResource( 34 )
+anims/to_fall = SubResource( 37 )
+anims/wall_grip = SubResource( 38 )
+anims/wall_run = SubResource( 39 )
+next/to_fall = "fall"
+script = ExtResource( 12 )
+
+[node name="Idle" type="Node" parent="PriorityAnimationPlayer"]
+script = ExtResource( 13 )
+condition_key = "idle"
+_expression_format = "true"
+
+[node name="Run" type="Node" parent="PriorityAnimationPlayer"]
+script = ExtResource( 13 )
+condition_key = "run"
+_nodes_path = [ NodePath("../../Controller") ]
+_properties = [ "direction.x" ]
+_expression_format = "{0} != 0"
+
+[node name="JumpUp" type="Node" parent="PriorityAnimationPlayer"]
+script = ExtResource( 13 )
+condition_key = "jump_up"
+_nodes_path = [ NodePath("../.."), NodePath("../../Velocity") ]
+_properties = [ "is_on_floor()", "value.y" ]
+_expression_format = "not {0} and {1} < -.01"
+
+[node name="Fall" type="Node" parent="PriorityAnimationPlayer"]
+script = ExtResource( 13 )
+condition_key = "to_fall"
+_nodes_path = [ NodePath("../.."), NodePath("../../Velocity") ]
+_properties = [ "is_on_floor()", "value.y" ]
+_expression_format = "not {0} and {1} >= -0.1"
+
+[node name="WallRun" type="Node" parent="PriorityAnimationPlayer"]
+script = ExtResource( 13 )
+condition_key = "wall_run"
+_nodes_path = [ NodePath("../../WallGrip"), NodePath("../../Velocity") ]
+_properties = [ "is_gripping_wall()", "value.y" ]
+_expression_format = "{0} and {1} < -0.1"
+
+[node name="WallGrip" type="Node" parent="PriorityAnimationPlayer"]
+script = ExtResource( 13 )
+condition_key = "wall_grip"
+_nodes_path = [ NodePath("../../WallGrip"), NodePath("../../Velocity") ]
+_properties = [ "is_gripping_wall()", "value.y" ]
+_expression_format = "{0} and {1} >= -0.1"
+
+[node name="RootSprite" type="Node2D" parent="."]
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="RootSprite"]
+frames = SubResource( 30 )
+animation = "run"
+frame = 3
+
+[node name="Controller" type="Node" parent="."]
+script = ExtResource( 6 )
+binded_actions = ExtResource( 7 )
+
+[node name="Input_User" type="Node" parent="Controller"]
+script = ExtResource( 9 )
+
+[node name="Velocity" type="Node2D" parent="."]
+script = ExtResource( 4 )
+units = 16.0
+
+[node name="Turner" type="Node2D" parent="."]
+script = ExtResource( 11 )
+_root_sprite_path = NodePath("../RootSprite")
+
+[node name="PlatformerTurnerListener" type="Node" parent="Turner"]
+script = ExtResource( 17 )
+_animation_player_path = NodePath("../../PriorityAnimationPlayer")
+_animation_names = [ "wall_run", "wall_grip" ]
+_turn_bys = [ 1, 4 ]
+
+[node name="ComponentDisabler" type="Node" parent="."]
+script = ExtResource( 15 )
+
+[node name="Gravity" type="Node2D" parent="."]
+script = ExtResource( 5 )
+up_gravity = 40.0
+down_gravity = 80.0
+terminal_velocity = 18.0
+
+[node name="Run" type="Node2D" parent="."]
+script = ExtResource( 8 )
+speed = 6.0
+_air_parameters_untyped = ExtResource( 16 )
+
+[node name="Jump" type="Node2D" parent="."]
+script = ExtResource( 10 )
+_height = 2.0
+
+[node name="WallGrip" type="Node2D" parent="."]
+script = ExtResource( 14 )
+_slide_speed = 2.0
+_kick_off_speed = 8.0
+_kick_off_height = 1.5
+_run_up_height = 0.5
+
+[connection signal="direction_h_changed" from="Controller" to="PriorityAnimationPlayer/Run" method="on_condition_changed"]
+[connection signal="floor_hit" from="Velocity" to="PriorityAnimationPlayer/JumpUp" method="on_condition_changed"]
+[connection signal="floor_hit" from="Velocity" to="PriorityAnimationPlayer/Fall" method="on_condition_changed"]
+[connection signal="floor_hit" from="Velocity" to="Turner" method="update_direction_by_controller"]
+[connection signal="floor_left" from="Velocity" to="PriorityAnimationPlayer/JumpUp" method="on_condition_changed"]
+[connection signal="floor_left" from="Velocity" to="PriorityAnimationPlayer/Fall" method="on_condition_changed"]
+[connection signal="x_direction_changed" from="Velocity" to="Turner" method="update_direction_by_controller"]
+[connection signal="y_direction_changed" from="Velocity" to="PriorityAnimationPlayer/JumpUp" method="on_condition_changed"]
+[connection signal="y_direction_changed" from="Velocity" to="PriorityAnimationPlayer/Fall" method="on_condition_changed"]
+[connection signal="y_direction_changed" from="Velocity" to="PriorityAnimationPlayer/WallRun" method="on_condition_changed"]
+[connection signal="y_direction_changed" from="Velocity" to="PriorityAnimationPlayer/WallGrip" method="on_condition_changed"]
+[connection signal="wall_gripped" from="WallGrip" to="PriorityAnimationPlayer/WallRun" method="on_condition_changed"]
+[connection signal="wall_gripped" from="WallGrip" to="PriorityAnimationPlayer/WallGrip" method="on_condition_changed"]
+[connection signal="wall_released" from="WallGrip" to="PriorityAnimationPlayer/WallRun" method="on_condition_changed"]
+[connection signal="wall_released" from="WallGrip" to="PriorityAnimationPlayer/WallGrip" method="on_condition_changed"]

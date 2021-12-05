@@ -8,10 +8,399 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "BlockFall",
+"language": "GDScript",
+"path": "res://src/blocks/fall.gd"
+}, {
+"base": "Node2D",
+"class": "BlockNxN",
+"language": "GDScript",
+"path": "res://src/blocks/block.gd"
+}, {
+"base": "Node2D",
+"class": "BlockSpawner",
+"language": "GDScript",
+"path": "res://src/blocks/spawner.gd"
+}, {
+"base": "Node",
+"class": "BlockSticker",
+"language": "GDScript",
+"path": "res://src/blocks/sticker.gd"
+}, {
+"base": "Position3D",
+"class": "Camera3Pivot",
+"language": "GDScript",
+"path": "res://lut/components_3d/pivot_camera.gd"
+}, {
+"base": "CollisionShape2D",
+"class": "CollisionExtents",
+"language": "GDScript",
+"path": "res://lut/components/extents.gd"
+}, {
+"base": "Node",
+"class": "ComponentDisabler",
+"language": "GDScript",
+"path": "res://lut/components/disabler.gd"
+}, {
+"base": "Spatial",
+"class": "Component_CaptureCursor",
+"language": "GDScript",
+"path": "res://lut/components_3d/capture_cursor.gd"
+}, {
+"base": "Node2D",
+"class": "Component_Dash",
+"language": "GDScript",
+"path": "res://lut/components/dash.gd"
+}, {
+"base": "Node2D",
+"class": "Component_Death",
+"language": "GDScript",
+"path": "res://lut/components/death.gd"
+}, {
+"base": "Node",
+"class": "Component_DeathTimer",
+"language": "GDScript",
+"path": "res://lut/components/death_timer.gd"
+}, {
+"base": "Reference",
+"class": "Components",
+"language": "GDScript",
+"path": "res://lut/components/component_getter.gd"
+}, {
+"base": "Node2D",
+"class": "ConstantVelocity",
+"language": "GDScript",
+"path": "res://lut/components/constant_velocity.gd"
+}, {
+"base": "Node",
+"class": "Controller",
+"language": "GDScript",
+"path": "res://lut/input/controller.gd"
+}, {
+"base": "Resource",
+"class": "Controller_BindedActions",
+"language": "GDScript",
+"path": "res://lut/input/binded_actions.gd"
+}, {
+"base": "Reference",
+"class": "FuncREf",
+"language": "GDScript",
+"path": "res://lut/funcref.gd"
+}, {
+"base": "Reference",
+"class": "GEometry",
+"language": "GDScript",
+"path": "res://lut/extension/geometry_extension.gd"
+}, {
+"base": "Node2D",
+"class": "Gravity",
+"language": "GDScript",
+"path": "res://lut/components/gravity.gd"
+}, {
+"base": "Node",
+"class": "Health",
+"language": "GDScript",
+"path": "res://lut/components/health.gd"
+}, {
+"base": "Node",
+"class": "Input_Abstract",
+"language": "GDScript",
+"path": "res://lut/input/abstract_input.gd"
+}, {
+"base": "Resource",
+"class": "Input_ActionBinding",
+"language": "GDScript",
+"path": "res://lut/input/bindings/binding.gd"
+}, {
+"base": "Input_ActionBinding",
+"class": "Input_ActionBinding_Directional",
+"language": "GDScript",
+"path": "res://lut/input/bindings/directional.gd"
+}, {
+"base": "Input_Abstract",
+"class": "Input_User",
+"language": "GDScript",
+"path": "res://lut/input/user_input.gd"
+}, {
+"base": "Input_Abstract",
+"class": "Input_Virtual",
+"language": "GDScript",
+"path": "res://lut/input/virtual_input.gd"
+}, {
+"base": "Reference",
+"class": "MathE",
+"language": "GDScript",
+"path": "res://lut/extension/math_extension.gd"
+}, {
+"base": "Spatial",
+"class": "Move4",
+"language": "GDScript",
+"path": "res://lut/components_3d/move4.gd"
+}, {
+"base": "Node2D",
+"class": "Move4Directions",
+"language": "GDScript",
+"path": "res://lut/components/move4.gd"
+}, {
+"base": "Reference",
+"class": "NodE",
+"language": "GDScript",
+"path": "res://lut/extension/node_extension.gd"
+}, {
+"base": "Node",
+"class": "ObjEct",
+"language": "GDScript",
+"path": "res://lut/extension/object_extension.gd"
+}, {
+"base": "Resource",
+"class": "Parameters_Run",
+"language": "GDScript",
+"path": "res://lut/components/run_parameters.gd"
+}, {
+"base": "Node2D",
+"class": "PlatformerJump",
+"language": "GDScript",
+"path": "res://lut/components/jump.gd"
+}, {
+"base": "Node2D",
+"class": "PlatformerRun",
+"language": "GDScript",
+"path": "res://lut/components/run.gd"
+}, {
+"base": "Node2D",
+"class": "PlatformerTurner",
+"language": "GDScript",
+"path": "res://lut/components/turner.gd"
+}, {
+"base": "Node",
+"class": "PlatformerTurnerListener",
+"language": "GDScript",
+"path": "res://lut/components/turner_listener.gd"
+}, {
+"base": "Node2D",
+"class": "PlatformerWallGrip",
+"language": "GDScript",
+"path": "res://lut/components/wall_grip.gd"
+}, {
+"base": "AnimationPlayer",
+"class": "PriorityAnimationPlayer",
+"language": "GDScript",
+"path": "res://lut/components/priority_animation.gd"
+}, {
+"base": "Node",
+"class": "PriorityNodePlaceholder",
+"language": "GDScript",
+"path": "res://lut/signal_animation_finished_callback.gd"
+}, {
+"base": "WindowDialog",
+"class": "Prompt_WaitForKey",
+"language": "GDScript",
+"path": "res://lut/ui/wait_for_key_prompt.gd"
+}, {
+"base": "Node2D",
+"class": "REferenceRect",
+"language": "GDScript",
+"path": "res://lut/nodes/reference_rect.gd"
+}, {
+"base": "Resource",
+"class": "REsource",
+"language": "GDScript",
+"path": "res://lut/extension/resource_extension.gd"
+}, {
+"base": "Reference",
+"class": "RNG",
+"language": "GDScript",
+"path": "res://lut/rng.gd"
+}, {
+"base": "Node2D",
+"class": "RootSprite",
+"language": "GDScript",
+"path": "res://lut/components/root_sprite.gd"
+}, {
+"base": "Reference",
+"class": "SignalDetector",
+"language": "GDScript",
+"path": "res://lut/signal_detector.gd"
+}, {
+"base": "Node",
+"class": "SignalExpression",
+"language": "GDScript",
+"path": "res://lut/signal_expression.gd"
+}, {
+"base": "Timer",
+"class": "TimEr",
+"language": "GDScript",
+"path": "res://lut/extension/timer_extension.gd"
+}, {
+"base": "Node",
+"class": "TurnBased_Command",
+"language": "GDScript",
+"path": "res://lut/turn_based_nodes/command.gd"
+}, {
+"base": "Node",
+"class": "TurnBased_Manager",
+"language": "GDScript",
+"path": "res://lut/turn_based_nodes/manager.gd"
+}, {
+"base": "Node",
+"class": "TurnBased_Player",
+"language": "GDScript",
+"path": "res://lut/turn_based_nodes/player.gd"
+}, {
+"base": "Node2D",
+"class": "Turner4Directions",
+"language": "GDScript",
+"path": "res://lut/components/turner4.gd"
+}, {
+"base": "Control",
+"class": "UI_KeybindProperty",
+"language": "GDScript",
+"path": "res://lut/ui/keybind_property.gd"
+}, {
+"base": "Control",
+"class": "UI_SliderProperty",
+"language": "GDScript",
+"path": "res://lut/ui/slider_property.gd"
+}, {
+"base": "Node2D",
+"class": "Velocity",
+"language": "GDScript",
+"path": "res://lut/components/velocity.gd"
+}, {
+"base": "Spatial",
+"class": "Velocity3",
+"language": "GDScript",
+"path": "res://lut/components_3d/velocity3.gd"
+} ]
+_global_script_class_icons={
+"BlockFall": "",
+"BlockNxN": "",
+"BlockSpawner": "",
+"BlockSticker": "",
+"Camera3Pivot": "",
+"CollisionExtents": "",
+"ComponentDisabler": "",
+"Component_CaptureCursor": "",
+"Component_Dash": "",
+"Component_Death": "",
+"Component_DeathTimer": "",
+"Components": "",
+"ConstantVelocity": "",
+"Controller": "",
+"Controller_BindedActions": "",
+"FuncREf": "",
+"GEometry": "",
+"Gravity": "",
+"Health": "",
+"Input_Abstract": "",
+"Input_ActionBinding": "",
+"Input_ActionBinding_Directional": "",
+"Input_User": "",
+"Input_Virtual": "",
+"MathE": "",
+"Move4": "",
+"Move4Directions": "",
+"NodE": "",
+"ObjEct": "",
+"Parameters_Run": "",
+"PlatformerJump": "",
+"PlatformerRun": "",
+"PlatformerTurner": "",
+"PlatformerTurnerListener": "",
+"PlatformerWallGrip": "",
+"PriorityAnimationPlayer": "",
+"PriorityNodePlaceholder": "",
+"Prompt_WaitForKey": "",
+"REferenceRect": "",
+"REsource": "",
+"RNG": "",
+"RootSprite": "",
+"SignalDetector": "",
+"SignalExpression": "",
+"TimEr": "",
+"TurnBased_Command": "",
+"TurnBased_Manager": "",
+"TurnBased_Player": "",
+"Turner4Directions": "",
+"UI_KeybindProperty": "",
+"UI_SliderProperty": "",
+"Velocity": "",
+"Velocity3": ""
+}
+
 [application]
 
 config/name="block_fall"
+run/main_scene="res://src/main.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=320
+window/size/height=180
+window/size/test_width=1280
+window/size/test_height=720
+window/stretch/mode="viewport"
+
+[importer_defaults]
+
+texture={
+"compress/bptc_ldr": 0,
+"compress/hdr_mode": 0,
+"compress/lossy_quality": 0.7,
+"compress/mode": 0,
+"compress/normal_map": 0,
+"detect_3d": false,
+"flags/anisotropic": false,
+"flags/filter": false,
+"flags/mipmaps": false,
+"flags/repeat": 0,
+"flags/srgb": 2,
+"process/HDR_as_SRGB": false,
+"process/fix_alpha_border": true,
+"process/invert_color": false,
+"process/normal_map_invert_y": false,
+"process/premult_alpha": false,
+"size_limit": 0,
+"stream": false,
+"svg/scale": 1.0
+}
+
+[input]
+
+jump={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":88,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777231,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+up={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+down={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Block"
+2d_physics/layer_3="Statics"
 
 [physics]
 
@@ -19,4 +408,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+2d/snapping/use_gpu_pixel_snap=true
 environment/default_environment="res://default_env.tres"
