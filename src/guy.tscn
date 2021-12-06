@@ -445,6 +445,7 @@ script = ExtResource( 9 )
 
 [node name="Velocity" type="Node2D" parent="."]
 script = ExtResource( 4 )
+up_movement_damping = 0.1
 units = 16.0
 
 [node name="Turner" type="Node2D" parent="."]
@@ -462,24 +463,26 @@ script = ExtResource( 15 )
 
 [node name="Gravity" type="Node2D" parent="."]
 script = ExtResource( 5 )
-up_gravity = 40.0
-down_gravity = 80.0
+up_gravity = 30.0
+down_gravity = 50.0
 terminal_velocity = 18.0
 
 [node name="Run" type="Node2D" parent="."]
 script = ExtResource( 8 )
-speed = 6.0
+speed = 7.0
 _air_parameters_untyped = ExtResource( 16 )
 
 [node name="Jump" type="Node2D" parent="."]
 script = ExtResource( 10 )
-_height = 2.0
+coyote_time_msec = 150
+jump_count = 0
+_height = 3.0
 
 [node name="WallGrip" type="Node2D" parent="."]
 script = ExtResource( 14 )
 _slide_speed = 2.0
-_kick_off_speed = 8.0
-_kick_off_height = 1.5
+_kick_off_speed = 10.0
+_kick_off_height = 2.5
 _run_up_height = 0.5
 
 [connection signal="direction_h_changed" from="Controller" to="PriorityAnimationPlayer/Run" method="on_condition_changed"]

@@ -1,6 +1,8 @@
 class_name BlockFall
 extends Node
 
+signal fell()
+
 export(float, 0, 1_000_000) var speed := 100.0
 
 onready var _body := NodE.get_ancestor_with_error(self, KinematicBody2D) as KinematicBody2D
@@ -32,3 +34,5 @@ func _convert_to_static_body() -> void:
 	
 	_body.get_parent().remove_child(_body)
 	_body.queue_free()
+	
+	emit_signal('fell')

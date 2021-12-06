@@ -3,19 +3,34 @@ extends Node2D
 
 const LayersConstants := preload('res://layers_constants.tres')
 
+const MaxFallingBodies := 100
+
 export(Rect2) var spawn_area := Rect2(0, 0, 100, 100)
 export(float) var spawn_rate_per_sec := 1.0
 
-export(float, 0.1, 20.0) var speed_variation_min := 8.0
-export(float, 0.1, 20.0) var speed_variation_max := 24.0
+export(float, 0.1, 1_000_000.0) var speed_variation_min := 8.0
+export(float, 0.1, 1_000_000.0) var speed_variation_max := 24.0
 
 export(int, 1, 10) var width_variation_min := 3
 export(int, 1, 10) var width_variation_max := 5
 export(int, 1, 10) var height_variation_min := 3
 export(int, 1, 10) var height_variation_max := 5
 
+export(bool) var active := false setget _active_set
+func _active_set(value: bool) -> void:
+	active = value
+	set_physics_process(active)
+
+var _bodies_falling := {}
+
+func _ready() -> void:
+	self.active = active
+
 var _previous_spawn_time := -1.0 / spawn_rate_per_sec * 2.0
 func _physics_process(delta: float) -> void:
+	if _bodies_falling.size() >= MaxFallingBodies:
+		return
+	
 	var spawn_delta := OS.get_ticks_msec() - _previous_spawn_time
 	if spawn_delta < (1.0 / spawn_rate_per_sec * 1000.0):
 		return
@@ -54,7 +69,12 @@ func _physics_process(delta: float) -> void:
 	get_parent().add_child(body)
 	
 	global_position.y -= block.get_effective_height()
+	
+	fall.connect('fell', self, '_on_block_fell', [body])
+	_bodies_falling[body] = true
 
+func _on_block_fell(body: Node) -> void:
+	_bodies_falling.erase(body)
 
 func _get_effective_spawn_rect_global(width: int, height: int) -> Rect2:
 	var rect := spawn_area

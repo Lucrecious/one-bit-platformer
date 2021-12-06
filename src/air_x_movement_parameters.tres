@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-friction = 3.0
-parallel_friction = 3.0
+friction = 1.0
+parallel_friction = 1.0
 unparallel_friction = 2.0
-interpolation = 0.25
+interpolation = 1.0
