@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource( 1 )
-single_actions = PoolStringArray( "jump" )
+single_actions = PoolStringArray( "jump", "dodge" )
 vectors = PoolStringArray( "left,right,up,down" )
