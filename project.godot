@@ -244,6 +244,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://lut/signal_expression.gd"
 }, {
+"base": "Node2D",
+"class": "SpriteFlattener",
+"language": "GDScript",
+"path": "res://lut/nodes/sprite_flattener.gd"
+}, {
 "base": "Timer",
 "class": "TimEr",
 "language": "GDScript",
@@ -337,6 +342,7 @@ _global_script_class_icons={
 "RootSprite": "",
 "SignalDetector": "",
 "SignalExpression": "",
+"SpriteFlattener": "",
 "TimEr": "",
 "TurnBased_Command": "",
 "TurnBased_Manager": "",
@@ -356,8 +362,8 @@ config/icon="res://icon.png"
 
 [display]
 
-window/size/width=320
-window/size/height=180
+window/size/width=640
+window/size/height=360
 window/size/test_width=1280
 window/size/test_height=720
 window/stretch/mode="viewport"

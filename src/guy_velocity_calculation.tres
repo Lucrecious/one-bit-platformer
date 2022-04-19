@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://src/velocity_calculation.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+turn_speed_per_sec = 154.0
