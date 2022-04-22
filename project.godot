@@ -139,6 +139,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://lut/input/bindings/directional.gd"
 }, {
+"base": "Node2D",
+"class": "Mantle",
+"language": "GDScript",
+"path": "res://src/components/mantle.gd"
+}, {
 "base": "Reference",
 "class": "MathE",
 "language": "GDScript",
@@ -163,11 +168,6 @@ _global_script_classes=[ {
 "class": "ObjEct",
 "language": "GDScript",
 "path": "res://lut/extension/object_extension.gd"
-}, {
-"base": "Node2D",
-"class": "PlatformerDash",
-"language": "GDScript",
-"path": "res://lut/components/dash.gd"
 }, {
 "base": "Node2D",
 "class": "PlatformerJump",
@@ -321,12 +321,12 @@ _global_script_class_icons={
 "IDirectionalInput": "",
 "Input_ActionBinding": "",
 "Input_ActionBinding_Directional": "",
+"Mantle": "",
 "MathE": "",
 "Move4": "",
 "Move4Directions": "",
 "NodE": "",
 "ObjEct": "",
-"PlatformerDash": "",
 "PlatformerJump": "",
 "PlatformerRun": "",
 "PlatformerTurner": "",
@@ -430,6 +430,7 @@ dodge={
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Block"
 2d_physics/layer_3="Statics"
+2d_physics/layer_4="MantlePoint"
 
 [physics]
 
