@@ -12,6 +12,7 @@ export(Vector2) var low_mantle_offset := Vector2.ZERO
 export(NodePath) var _low_mantle_area_path := NodePath()
 export(NodePath) var _low_mantle_hint_path := NodePath()
 export(bool) var low_mantle_keep_x_speed := false
+export(bool) var allow_jump := false
 
 export(String) var high_mantle_anim := ''
 export(Vector2) var high_mantle_offset := Vector2.ZERO
@@ -31,6 +32,7 @@ onready var _controller := Components.controller(get_parent())
 onready var _disabler := Components.disabler(get_parent())
 onready var _velocity := Components.velocity(get_parent())
 onready var _animation := Components.priority_animation_player(get_parent())
+onready var _jump := NodE.get_sibling_with_error(self, PlatformerJump) as PlatformerJump
 
 var _enabled := false
 
@@ -56,6 +58,7 @@ func enable() -> void:
 	_enabled = true
 	if _low_mantle_available() or _high_mantle_available():
 		_controller.connect('direction1_changed', self, '_on_direction1_changed')
+		_controller.connect('jump_just_pressed', self, '_on_jump_just_pressed')
 		_on_direction1_changed(_controller.get_direction(0))
 	
 	if _low_mantle_available():
@@ -80,6 +83,7 @@ func disable() -> void:
 	
 	if _low_mantle_available() or _high_mantle_available():
 		_controller.disconnect('direction1_changed', self, '_on_direction1_changed')
+		_controller.disconnect('jump_just_pressed', self, '_on_jump_just_pressed')
 		
 	if _low_mantle_available():
 		low_mantle_area.disconnect('area_entered', self, '_on_low_area_entered')
@@ -128,6 +132,17 @@ func _on_direction1_changed(direction: Vector2) -> void:
 		_mantle(low_mantle_anim, low_mantle_hint, low_mantle_offset)
 	elif _mantle_type == HighMantle:
 		_mantle(high_mantle_anim, high_mantle_hint, high_mantle_offset)
+
+func _on_jump_just_pressed() -> void:
+	if not _is_mantling:
+		return
+	
+	if not allow_jump:
+		return
+	
+	disable()
+	enable()
+	_jump.impulse()
 
 func _physics_process(delta: float) -> void:
 	_velocity.value.y = 1

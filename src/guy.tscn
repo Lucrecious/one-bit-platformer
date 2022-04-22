@@ -4014,6 +4014,7 @@ low_mantle_offset = Vector2( 3, -8 )
 _low_mantle_area_path = NodePath("../RootSprite/LowMantleArea")
 _low_mantle_hint_path = NodePath("../RootSprite/LowMantleHint")
 low_mantle_keep_x_speed = true
+allow_jump = true
 high_mantle_anim = "mantle_high"
 high_mantle_offset = Vector2( 9, -35 )
 _high_mantle_area_path = NodePath("../RootSprite/HightMantleArea")
