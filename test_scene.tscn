@@ -1,36 +1,30 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://assets/guy_parts/Body.png" type="Texture" id=1]
-[ext_resource path="res://lut/nodes/sprite_flattener.gd" type="Script" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=1]
 
-[sub_resource type="Animation" id=1]
-resource_name = "default"
-loop = true
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform float scale = 1.0;
+
+void fragment() {
+	vec2 grid_uv = floor(UV / TEXTURE_PIXEL_SIZE * scale) * TEXTURE_PIXEL_SIZE / scale;
+	vec4 color = texture(TEXTURE, grid_uv);
+	COLOR = color;
+}
+
+
+void vertex() {
+	VERTEX = VERTEX * scale;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/scale = 0.5
 
 [node name="Node2D" type="Node2D"]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "default"
-anims/default = SubResource( 1 )
-
-[node name="SpriteFlattener" type="Node2D" parent="."]
-position = Vector2( 53.561, 33.3454 )
-script = ExtResource( 2 )
-
-[node name="Sprite" type="Sprite" parent="SpriteFlattener"]
-rotation = 1.35787
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 2 )
 texture = ExtResource( 1 )
-offset = Vector2( 20, 0 )
-
-[node name="Sprite2" type="Sprite" parent="SpriteFlattener/Sprite"]
-position = Vector2( 10.8228, -11.7831 )
-rotation = 1.61268
-texture = ExtResource( 1 )
-offset = Vector2( 20, 0 )
-
-[node name="ReferenceRect" type="ReferenceRect" parent="."]
-margin_left = 47.8532
-margin_top = 0.176298
-margin_right = 87.8532
-margin_bottom = 40.1763
-editor_only = false
+offset = Vector2( 10, 10 )

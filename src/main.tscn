@@ -164,7 +164,7 @@ margin_top = -354.0
 margin_right = 871.0
 margin_bottom = 510.0
 mouse_filter = 2
-color = Color( 0, 0, 0, 1 )
+color = Color( 0.14902, 0.258824, 0.184314, 1 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 2 )

@@ -1906,7 +1906,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.08 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( -2, 15 ), Vector2( -2, 6 ) ]
+"values": [ Vector2( -4, 15 ), Vector2( -2, 6 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("RootSprite/root/body:rotation_degrees")
@@ -3761,7 +3761,7 @@ anims/to_fall = SubResource( 37 )
 anims/wall_grip = SubResource( 38 )
 anims/wall_run = SubResource( 42 )
 next/to_fall = "fall"
-blend_times = [ "fall", "idle", 0.1, "fall", "run", 0.1, "idle", "fall", 0.1, "idle", "jump_up", 0.1, "idle", "run", 0.1, "idle", "to_fall", 0.1, "jump_up", "idle", 0.1, "jump_up", "run", 0.1, "jump_up", "to_fall", 0.2, "run", "fall", 0.1, "run", "idle", 0.1, "run", "jump_up", 0.1, "run", "to_fall", 0.1 ]
+blend_times = [ "fall", "idle", 0.1, "fall", "jump_up", 0.1, "fall", "run", 0.1, "idle", "fall", 0.1, "idle", "jump_up", 0.1, "idle", "run", 0.1, "idle", "to_fall", 0.1, "jump_up", "fall", 0.1, "jump_up", "idle", 0.1, "jump_up", "run", 0.1, "run", "fall", 0.1, "run", "idle", 0.1, "run", "jump_up", 0.1, "run", "roll", 0.1 ]
 script = ExtResource( 12 )
 
 [node name="Idle" type="Node" parent="PriorityAnimationPlayer"]
@@ -3776,19 +3776,19 @@ _nodes_path = [ NodePath("../../Controller") ]
 _properties = [ "get_direction(0)" ]
 _expression_format = "{0}.x != 0"
 
+[node name="Fall" type="Node" parent="PriorityAnimationPlayer"]
+script = ExtResource( 13 )
+condition_key = "fall"
+_nodes_path = [ NodePath("../.."), NodePath("../../Velocity") ]
+_properties = [ "is_on_floor()", "value.y" ]
+_expression_format = "not {0} and {1} >= -0.1"
+
 [node name="JumpUp" type="Node" parent="PriorityAnimationPlayer"]
 script = ExtResource( 13 )
 condition_key = "jump_up"
 _nodes_path = [ NodePath("../.."), NodePath("../../Velocity") ]
 _properties = [ "is_on_floor()", "value.y" ]
 _expression_format = "not {0} and {1} < -.01"
-
-[node name="Fall" type="Node" parent="PriorityAnimationPlayer"]
-script = ExtResource( 13 )
-condition_key = "to_fall"
-_nodes_path = [ NodePath("../.."), NodePath("../../Velocity") ]
-_properties = [ "is_on_floor()", "value.y" ]
-_expression_format = "not {0} and {1} >= -0.1"
 
 [node name="Mantle" type="Node" parent="PriorityAnimationPlayer"]
 script = ExtResource( 29 )
@@ -3932,6 +3932,7 @@ __meta__ = {
 }
 
 [node name="LowMantleArea" type="Area2D" parent="RootSprite"]
+position = Vector2( 1, 0 )
 collision_layer = 0
 collision_mask = 8
 monitorable = false
@@ -3944,6 +3945,7 @@ shape = SubResource( 44 )
 position = Vector2( 5, -9 )
 
 [node name="HightMantleArea" type="Area2D" parent="RootSprite"]
+position = Vector2( 1, 0 )
 collision_layer = 0
 collision_mask = 8
 monitorable = false
@@ -3989,8 +3991,11 @@ script = ExtResource( 15 )
 
 [node name="Gravity" type="Node2D" parent="."]
 script = ExtResource( 5 )
-up_gravity = 22.0
-down_gravity = 37.0
+__meta__ = {
+"_edit_bone_": true
+}
+up_gravity = 33.0
+down_gravity = 55.5
 terminal_velocity = 18.0
 
 [node name="Run" type="Node2D" parent="."]
@@ -4003,9 +4008,6 @@ _air_velocity_calculation = ExtResource( 16 )
 script = ExtResource( 10 )
 coyote_time_msec = 150
 height = 3.0
-
-[node name="WallGrip" type="Node2D" parent="."]
-script = ExtResource( 14 )
 
 [node name="Mantle" type="Node2D" parent="."]
 script = ExtResource( 28 )
@@ -4020,6 +4022,9 @@ high_mantle_offset = Vector2( 9, -35 )
 _high_mantle_area_path = NodePath("../RootSprite/HightMantleArea")
 _high_mantle_hint_path = NodePath("../RootSprite/HighMantleHint")
 _anim_priority_path = NodePath("../PriorityAnimationPlayer/Mantle")
+
+[node name="WallGrip" type="Node2D" parent="."]
+script = ExtResource( 14 )
 
 [node name="Roll" type="Node2D" parent="."]
 script = ExtResource( 18 )

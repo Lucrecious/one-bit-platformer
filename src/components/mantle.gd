@@ -33,6 +33,7 @@ onready var _disabler := Components.disabler(get_parent())
 onready var _velocity := Components.velocity(get_parent())
 onready var _animation := Components.priority_animation_player(get_parent())
 onready var _jump := NodE.get_sibling_with_error(self, PlatformerJump) as PlatformerJump
+onready var _run := NodE.get_sibling_with_error(self, PlatformerRun) as PlatformerRun
 
 var _enabled := false
 
@@ -126,6 +127,9 @@ func _on_high_area_exited(area: Area2D) -> void:
 	_current_mantle_point = null
 
 func _on_direction1_changed(direction: Vector2) -> void:
+	if _is_mantling:
+		return
+	
 	_current_x_direction = sign(direction.x)
 	
 	if _mantle_type == LowMantle:
@@ -167,9 +171,12 @@ func _mantle(mantle_anim: String, mantle_hint: Node2D, mantle_offset: Vector2) -
 	var hint_offset := _body.to_local(mantle_hint.global_position)
 	
 	_body.global_position = _current_mantle_point.global_position - hint_offset + Vector2(mantle_offset.x * _current_x_direction, mantle_offset.y)
+	
 	_disabler.disable_below(self)
+	
 	if low_mantle_keep_x_speed and _mantle_type == LowMantle:
 		_velocity.value.y = 0.0
+		_run.enable()
 	else:
 		_velocity.value = Vector2.ZERO
 	
