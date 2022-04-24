@@ -1,62 +1,39 @@
 tool
-class_name BlockNxN
-extends Node2D
+class_name Block
+extends CollisionShape2D
 
-enum Type {
-	Static,
-	Kinematic,
-}
+export(int, LAYERS_2D_PHYSICS) var mantle_collision_layer := 1 << 3
+export(int) var mantle_size := 5.0
+export(Color) var color := Color.whitesmoke
 
-export(int, 1, 100) var width := 1 setget _width_set
-export(int, 1, 100) var height := 1 setget _height_set
-export(Texture) var texture: Texture = null setget _texture_set
-
-func _width_set(value: int) -> void:
-	if value == width:
+func _ready() -> void:
+	update()
+	
+	if Engine.editor_hint:
+		ObjEct.connect_once(shape, 'changed', self, '_on_shape_changed')
 		return
 	
-	width = value
-	_update()
-
-func _height_set(value: int) -> void:
-	if value == height:
-		return
+	assert(shape is RectangleShape2D)
+	var points := []
 	
-	height = value
-	_update()
-
-func _texture_set(value: Texture) -> void:
-	if value == texture:
-		return
+	points.push_back(-shape.extents)
+	points.push_back(shape.extents * Vector2(1, -1))
 	
-	texture = value
-	_update()
+	for p in points:
+		var area := Area2D.new()
+		var collision_shape := CollisionShape2D.new()
+		var circle := CircleShape2D.new()
+		circle.radius = mantle_size / 2.0
+		collision_shape.shape = circle
+		area.add_child(collision_shape)
+		add_child(area)
+		
+		area.position = p
+		area.collision_layer = mantle_collision_layer
+		area.collision_mask = 0
 
-func get_effective_size() -> Vector2:
-	return Vector2(get_effective_width(), get_effective_height())
-
-func get_effective_width() -> int:
-	if not texture:
-		return 0
-	return width * texture.get_width()
-
-func get_effective_height() -> int:
-	if not texture:
-		return 0
-	return height * texture.get_height()
-
-func _update() -> void:
+func _on_shape_changed() -> void:
 	update()
 
 func _draw() -> void:
-	if not texture:
-		return
-	
-	var texture_width := texture.get_width()
-	var texture_height := texture.get_height()
-	
-	for x in width:
-		for y in height:
-			draw_texture(texture, Vector2(x * texture_width, y * texture_height))
-			
-
+	draw_rect(Rect2(-shape.extents, shape.extents * 2.0), color)

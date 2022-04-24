@@ -9,15 +9,15 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "CollisionShape2D",
+"class": "Block",
+"language": "GDScript",
+"path": "res://src/blocks/block.gd"
+}, {
 "base": "Node",
 "class": "BlockFall",
 "language": "GDScript",
 "path": "res://src/blocks/fall.gd"
-}, {
-"base": "Node2D",
-"class": "BlockNxN",
-"language": "GDScript",
-"path": "res://src/blocks/block.gd"
 }, {
 "base": "Node2D",
 "class": "BlockSpawner",
@@ -194,6 +194,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://lut/components/wall_grip.gd"
 }, {
+"base": "Camera2D",
+"class": "PlayerCamera",
+"language": "GDScript",
+"path": "res://src/player/camera.gd"
+}, {
 "base": "AnimationPlayer",
 "class": "PriorityAnimationPlayer",
 "language": "GDScript",
@@ -295,8 +300,8 @@ _global_script_classes=[ {
 "path": "res://lut/components_3d/velocity3.gd"
 } ]
 _global_script_class_icons={
+"Block": "",
 "BlockFall": "",
-"BlockNxN": "",
 "BlockSpawner": "",
 "BlockSticker": "",
 "ButtonInput": "",
@@ -332,6 +337,7 @@ _global_script_class_icons={
 "PlatformerTurner": "",
 "PlatformerTurnerListener": "",
 "PlatformerWallGrip": "",
+"PlayerCamera": "",
 "PriorityAnimationPlayer": "",
 "PriorityNodePlaceholder": "",
 "Prompt_WaitForKey": "",
