@@ -98,7 +98,7 @@ color = Color( 0.819608, 0.819608, 0.819608, 1 )
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 
 [node name="Block" type="CollisionShape2D" parent="StaticBody2D2"]
-position = Vector2( 512, 32 )
+position = Vector2( 480, 32 )
 shape = SubResource( 10 )
 script = ExtResource( 1 )
 color = Color( 0.819608, 0.819608, 0.819608, 1 )
@@ -115,7 +115,7 @@ color = Color( 0.819608, 0.819608, 0.819608, 1 )
 position = Vector2( 352, -96 )
 
 [node name="Block" type="CollisionShape2D" parent="StaticBody2D4"]
-position = Vector2( 160, -32 )
+position = Vector2( 128, -32 )
 shape = SubResource( 10 )
 script = ExtResource( 1 )
 color = Color( 0.819608, 0.819608, 0.819608, 1 )
