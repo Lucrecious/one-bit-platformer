@@ -370,9 +370,11 @@ config/icon="res://icon.png"
 
 window/size/width=640
 window/size/height=360
-window/size/test_width=1280
-window/size/test_height=720
+window/size/test_width=2560
+window/size/test_height=1440
+window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
+window/stretch/aspect="keep_width"
 
 [importer_defaults]
 

@@ -1,5 +1,7 @@
 raw_assets/*
 
+bin/
+
 # Godot-specific ignores
 .import/
 export.cfg

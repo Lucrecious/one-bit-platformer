@@ -4540,7 +4540,7 @@ _expression_format = "{0} and {1} >= -0.1"
 
 [node name="WallRun" type="Node" parent="PriorityAnimationPlayer"]
 script = ExtResource( 13 )
-condition_key = "wall_run"
+condition_key = "wall_grip"
 _nodes_path = [ NodePath("../../WallGrip"), NodePath("../../Velocity") ]
 _properties = [ "is_gripping()", "value.y" ]
 _expression_format = "{0} and {1} < -0.1"
@@ -4769,12 +4769,12 @@ height = 3.0
 
 [node name="WallGrip" type="Node2D" parent="."]
 script = ExtResource( 14 )
-run_up_height = 1.0
+run_up_height = 0.25
 
 [node name="WallJump" type="Node2D" parent="."]
 script = ExtResource( 31 )
-height = 2.0
-jump_lock_distance_x = 1.3
+height = 2.5
+jump_lock_distance_x = 0.8
 speed_x = 7.0
 
 [node name="Mantle" type="Node2D" parent="."]
