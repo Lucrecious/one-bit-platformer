@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://lut/components/root_sprite.gd" type="Script" id=1]
 [ext_resource path="res://lut/components/extents.gd" type="Script" id=2]
@@ -30,6 +30,7 @@
 [ext_resource path="res://src/components/mantle.gd" type="Script" id=28]
 [ext_resource path="res://lut/signal_animation_finished_callback.gd" type="Script" id=29]
 [ext_resource path="res://src/components/land.gd" type="Script" id=30]
+[ext_resource path="res://lut/components/wall_jump.gd" type="Script" id=31]
 
 [sub_resource type="RectangleShape2D" id=47]
 extents = Vector2( 5, 12 )
@@ -4739,7 +4740,7 @@ __meta__ = {
 }
 up_gravity = 33.0
 down_gravity = 55.5
-terminal_velocity = 18.0
+terminal_velocity = 25.0
 
 [node name="Run" type="Node2D" parent="."]
 script = ExtResource( 8 )
@@ -4751,6 +4752,15 @@ _air_velocity_calculation = ExtResource( 16 )
 script = ExtResource( 10 )
 coyote_time_msec = 150
 height = 3.0
+
+[node name="WallGrip" type="Node2D" parent="."]
+script = ExtResource( 14 )
+
+[node name="WallJump" type="Node2D" parent="."]
+script = ExtResource( 31 )
+height = 2.0
+jump_lock_distance_x = 1.3
+speed_x = 7.0
 
 [node name="Mantle" type="Node2D" parent="."]
 script = ExtResource( 28 )
@@ -4766,9 +4776,6 @@ _high_mantle_area_path = NodePath("../RootSprite/HightMantleArea")
 _high_mantle_hint_path = NodePath("../RootSprite/HighMantleHint")
 _anim_priority_path = NodePath("../PriorityAnimationPlayer/Mantle")
 
-[node name="WallGrip" type="Node2D" parent="."]
-script = ExtResource( 14 )
-
 [node name="Land" type="Node2D" parent="."]
 script = ExtResource( 30 )
 _priority_node_path = NodePath("../PriorityAnimationPlayer/Land")
@@ -4778,6 +4785,7 @@ script = ExtResource( 18 )
 anim_name = "roll"
 action_name = "dodge"
 _priority_node_path = NodePath("../PriorityAnimationPlayer/Dodge")
+allow_gravity = true
 
 [node name="Node" type="Node" parent="."]
 

@@ -1,6 +1,6 @@
 extends Node2D
 
-const HARD_LAND_TERMINAL_MSEC := 500#1_000
+const HARD_LAND_TERMINAL_MSEC := 300
 
 export(String) var land_anim := 'land'
 export(NodePath) var _priority_node_path := NodePath()
@@ -50,6 +50,8 @@ func _physics_process(delta: float) -> void:
 		_msec_in_terminal_velocity += floor(delta * 1000)
 	else:
 		_msec_in_terminal_velocity = 0
+	
+	print(_msec_in_terminal_velocity)
 		
 
 func _on_floor_hit() -> void:
