@@ -50,9 +50,6 @@ func _physics_process(delta: float) -> void:
 		_msec_in_terminal_velocity += floor(delta * 1000)
 	else:
 		_msec_in_terminal_velocity = 0
-	
-	print(_msec_in_terminal_velocity)
-		
 
 func _on_floor_hit() -> void:
 	set_physics_process(false)
