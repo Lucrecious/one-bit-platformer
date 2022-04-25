@@ -145,6 +145,7 @@ func _on_jump_just_pressed() -> void:
 		return
 	
 	disable()
+	_disabler.enable_below(self)
 	enable()
 	_jump.impulse()
 
