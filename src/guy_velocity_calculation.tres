@@ -4,4 +4,4 @@
 
 [resource]
 script = ExtResource( 1 )
-turn_speed_per_sec = 154.0
+turn_speed_per_sec = 77.0
