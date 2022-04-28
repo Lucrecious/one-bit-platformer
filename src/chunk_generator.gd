@@ -1,3 +1,4 @@
+class_name TileMapGenerator
 extends Node2D
 
 export(int) var chunk_offset_x := 0
@@ -21,7 +22,7 @@ func _ready() -> void:
 	_tilemap.cell_size = Vector2.ONE * 8.0
 	_tilemap.collision_layer = tilemap_collision
 	
-	for i in 10:
+	for i in 0:
 		var region := get_chunk_rect(Vector2(0, -i))
 		if i == 0:
 			box(_tilemap, region, outer_margin_size, 0, outer_margin_size, outer_margin_size)
@@ -29,13 +30,13 @@ func _ready() -> void:
 			var block_region := region.grow_individual(-outer_margin_size, 0, -outer_margin_size, -outer_margin_size - 15)
 			block(_tilemap, block_region)
 			generate_chunk(_tilemap, block_region, 4)
-			_add_mantle_points(_tilemap, block_region)
+			add_mantle_points(_tilemap, block_region, mantle_size, mantle_point_collision)
 		else:
 			box(_tilemap, region, outer_margin_size, 0, outer_margin_size, 0)
 			var block_region := region.grow_individual(-outer_margin_size, -outer_margin_size, -outer_margin_size, -outer_margin_size)
 			block(_tilemap, block_region)
 			generate_chunk(_tilemap, block_region, 4)
-			_add_mantle_points(_tilemap, block_region)
+			add_mantle_points(_tilemap, block_region, mantle_size, mantle_point_collision)
 		
 		_tilemap.update_bitmask_region(region.position, region.position + region.size)
 
@@ -133,7 +134,7 @@ func fill(map: TileMap, region: Rect2, id := -1) -> void:
 		for j in region.size.y:
 			map.set_cell(region.position.x + i, region.position.y + j, id)
 
-func _add_mantle_points(map: TileMap, region: Rect2) -> void:
+static func add_mantle_points(map: TileMap, region: Rect2, mantle_size: float, mantle_collision) -> void:
 	for cell in map.get_used_cells():
 		if not region.has_point(cell):
 			continue
@@ -146,13 +147,13 @@ func _add_mantle_points(map: TileMap, region: Rect2) -> void:
 			circle.radius = mantle_size / 2.0
 			collision_shape.shape = circle
 			area.add_child(collision_shape)
-			add_child(area)
+			map.add_child(area)
 			
 			area.position = point
-			area.collision_layer = mantle_point_collision
+			area.collision_layer = mantle_collision
 			area.collision_mask = 0
 
-func _get_corners(map: TileMap, cell: Vector2) -> Array:
+static func _get_corners(map: TileMap, cell: Vector2) -> Array:
 	if _is_empty(map, cell):
 		return []
 	
@@ -167,5 +168,5 @@ func _get_corners(map: TileMap, cell: Vector2) -> Array:
 	
 	return corners
 
-func _is_empty(map: TileMap, cell: Vector2) -> bool:
+static func _is_empty(map: TileMap, cell: Vector2) -> bool:
 	return map.get_cellv(cell) < 0 

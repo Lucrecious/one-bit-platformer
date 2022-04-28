@@ -254,6 +254,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://lut/nodes/sprite_flattener.gd"
 }, {
+"base": "Node2D",
+"class": "TileMapGenerator",
+"language": "GDScript",
+"path": "res://src/chunk_generator.gd"
+}, {
 "base": "Timer",
 "class": "TimEr",
 "language": "GDScript",
@@ -349,6 +354,7 @@ _global_script_class_icons={
 "SignalDetector": "",
 "SignalExpression": "",
 "SpriteFlattener": "",
+"TileMapGenerator": "",
 "TimEr": "",
 "TurnBased_Command": "",
 "TurnBased_Manager": "",
