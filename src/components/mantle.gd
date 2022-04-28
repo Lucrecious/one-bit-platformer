@@ -130,8 +130,8 @@ func _mantle() -> void:
 	
 	_root_sprite.position -= delta
 	var sec := delta.length() / (units_per_sec * _velocity.units)
-	_sync_tween.interpolate_property(_root_sprite, 'position:y', null, 0.0, sec, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
-	_sync_tween.interpolate_property(_root_sprite, 'position:x', null, 0.0, sec, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT, sec / 2.0)
+	_sync_tween.interpolate_property(_root_sprite, 'position:y', null, 0.0, sec, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	_sync_tween.interpolate_property(_root_sprite, 'position:x', null, 0.0, sec, Tween.TRANS_QUAD, Tween.EASE_OUT, sec / 2.0)
 	_sync_tween.start()
 	
 	if _use_animation():

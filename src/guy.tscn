@@ -4890,14 +4890,14 @@ script = ExtResource( 13 )
 condition_key = "fall"
 _nodes_path = [ NodePath("../.."), NodePath("../../Velocity") ]
 _properties = [ "is_on_floor()", "value.y" ]
-_expression_format = "not {0} and {1} >= -0.1"
+_expression_format = "not {0} and {1} >= 0"
 
 [node name="JumpUp" type="Node" parent="PriorityAnimationPlayer"]
 script = ExtResource( 13 )
 condition_key = "jump_up"
 _nodes_path = [ NodePath("../.."), NodePath("../../Velocity") ]
 _properties = [ "is_on_floor()", "value.y" ]
-_expression_format = "not {0} and {1} < -.01"
+_expression_format = "not {0} and {1} < 0"
 
 [node name="WallSlide" type="Node" parent="PriorityAnimationPlayer"]
 script = ExtResource( 13 )
@@ -5175,7 +5175,7 @@ _anim_priority_node_path = NodePath("../PriorityAnimationPlayer/Mantle")
 offset = Vector2( 10, -35 )
 _area_path = NodePath("../RootSprite/HighMantleArea")
 _hint_path = NodePath("../RootSprite/HighMantleHint")
-units_per_sec = 3.0
+units_per_sec = 5.0
 
 [node name="Land" type="Node2D" parent="."]
 script = ExtResource( 30 )
