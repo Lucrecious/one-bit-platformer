@@ -22,7 +22,7 @@ func _ready() -> void:
 	_tilemap.cell_size = Vector2.ONE * 8.0
 	_tilemap.collision_layer = tilemap_collision
 	
-	for i in 10:
+	for i in 0:
 		var region := get_chunk_rect(Vector2(0, -i))
 		if i == 0:
 			box(_tilemap, region, outer_margin_size, 0, outer_margin_size, outer_margin_size)
