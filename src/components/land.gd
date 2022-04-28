@@ -1,9 +1,9 @@
 extends Node2D
 
-const HARD_LAND_TERMINAL_MSEC := 300
-
 export(NodePath) var _priority_node_path := NodePath()
 export(float) var terminal_velocity := 17.0
+export(float) var terminal_velocity_msec := 100
+export(float) var velocity_no_msec_check := 20.0
 
 onready var _body := get_parent() as KinematicBody2D
 onready var _velocity := Components.velocity(get_parent())
@@ -14,6 +14,7 @@ onready var _priority_node := get_node(_priority_node_path)
 
 var _enabled := false
 var _msec_in_terminal_velocity := 0
+var _no_msec_check := false
 
 func enable() -> void:
 	if _enabled:
@@ -45,6 +46,11 @@ func _ready() -> void:
 	enable()
 
 func _physics_process(delta: float) -> void:
+	if _velocity.value.y >= velocity_no_msec_check:
+		_no_msec_check = true
+	else:
+		_no_msec_check = false
+	
 	if _velocity.value.y >= terminal_velocity:
 		_msec_in_terminal_velocity += floor(delta * 1000)
 	else:
@@ -53,7 +59,7 @@ func _physics_process(delta: float) -> void:
 func _on_floor_hit() -> void:
 	set_physics_process(false)
 	
-	if _msec_in_terminal_velocity < HARD_LAND_TERMINAL_MSEC:
+	if _msec_in_terminal_velocity < terminal_velocity_msec and not _no_msec_check:
 		return
 	
 	_disabler.disable_below(self)
@@ -70,4 +76,5 @@ func _on_land_finished() -> void:
 
 func _on_floor_left() -> void:
 	_msec_in_terminal_velocity = 0
+	_no_msec_check = false
 	set_physics_process(true)
