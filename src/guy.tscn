@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://lut/components/root_sprite.gd" type="Script" id=1]
 [ext_resource path="res://lut/components/extents.gd" type="Script" id=2]
@@ -32,6 +32,7 @@
 [ext_resource path="res://src/components/land.gd" type="Script" id=30]
 [ext_resource path="res://lut/components/wall_jump.gd" type="Script" id=31]
 [ext_resource path="res://src/components/snap_to_floor.gd" type="Script" id=32]
+[ext_resource path="res://src/components/camera_to_root_sprite.gd" type="Script" id=33]
 
 [sub_resource type="RectangleShape2D" id=47]
 extents = Vector2( 5, 12 )
@@ -1904,10 +1905,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( -13, 18 ), Vector2( -13, 18 ), Vector2( -6.5, 7.5 ) ]
+"values": [ Vector2( -6.5, 7.5 ), Vector2( -6.5, 7.5 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("RootSprite/root/body:rotation_degrees")
@@ -1916,10 +1917,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.05, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 39.3947, 39.3947, 11.8201 ]
+"values": [ 11.8201, 11.8201 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("RootSprite/root/body/upper_arm_back/upper_arm_back:position")
@@ -4465,10 +4466,10 @@ tracks/29/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=44]
-extents = Vector2( 2, 5 )
+extents = Vector2( 3, 5 )
 
 [sub_resource type="RectangleShape2D" id=46]
-extents = Vector2( 1, 7 )
+extents = Vector2( 3, 6 )
 
 [node name="Guy" type="KinematicBody2D" groups=["player"]]
 collision_mask = 0
@@ -4699,20 +4700,20 @@ collision_mask = 8
 monitorable = false
 
 [node name="Collision" type="CollisionShape2D" parent="RootSprite/LowMantleArea"]
-position = Vector2( 6, -10 )
+position = Vector2( 5, -10 )
 shape = SubResource( 44 )
 
 [node name="LowMantleHint" type="Position2D" parent="RootSprite"]
 position = Vector2( 5, -9 )
 
-[node name="HightMantleArea" type="Area2D" parent="RootSprite"]
+[node name="HighMantleArea" type="Area2D" parent="RootSprite"]
 position = Vector2( 1, 0 )
 collision_layer = 0
 collision_mask = 8
 monitorable = false
 
-[node name="Collision" type="CollisionShape2D" parent="RootSprite/HightMantleArea"]
-position = Vector2( 5, -23 )
+[node name="Collision" type="CollisionShape2D" parent="RootSprite/HighMantleArea"]
+position = Vector2( 5, -25 )
 shape = SubResource( 46 )
 
 [node name="HighMantleHint" type="Position2D" parent="RootSprite"]
@@ -4731,6 +4732,9 @@ left = "left"
 right = "right"
 up = "up"
 down = "down"
+
+[node name="CameraToRootSprite" type="Node" parent="."]
+script = ExtResource( 33 )
 
 [node name="Velocity" type="Node2D" parent="."]
 script = ExtResource( 4 )
@@ -4792,6 +4796,15 @@ _area_path = NodePath("../RootSprite/LowMantleArea")
 _hint_path = NodePath("../RootSprite/LowMantleHint")
 keep_x_speed = true
 allow_jump = true
+units_per_sec = 3.0
+
+[node name="HighMantle" type="Node2D" parent="."]
+script = ExtResource( 28 )
+animation = "mantle_high"
+_anim_priority_node_path = NodePath("../PriorityAnimationPlayer/Mantle")
+offset = Vector2( 10, -35 )
+_area_path = NodePath("../RootSprite/HighMantleArea")
+_hint_path = NodePath("../RootSprite/HighMantleHint")
 units_per_sec = 3.0
 
 [node name="Land" type="Node2D" parent="."]

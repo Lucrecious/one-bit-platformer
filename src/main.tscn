@@ -89,6 +89,7 @@ chunk_height = 45
 tileset = ExtResource( 1 )
 tilemap_collision = 3
 mantle_point_collision = 8
+mantle_size = 2
 outer_margin_size = 6
 min_width_space = 3
 min_height_space = 5
