@@ -1,4 +1,7 @@
+class_name HardLand
 extends Node2D
+
+signal landed_hard()
 
 export(NodePath) var _priority_node_path := NodePath()
 export(float) var terminal_velocity := 17.0
@@ -67,6 +70,7 @@ func _on_floor_hit() -> void:
 	_velocity.value.x = 0
 	
 	_animation.callback_on_finished_by_node(_priority_node, self, '_on_land_finished')
+	emit_signal('landed_hard')
 
 func _on_land_finished() -> void:
 	if not _enabled:

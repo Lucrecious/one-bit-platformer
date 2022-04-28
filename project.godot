@@ -40,6 +40,11 @@ _global_script_classes=[ {
 "path": "res://lut/components_3d/pivot_camera.gd"
 }, {
 "base": "Node",
+"class": "CameraShake",
+"language": "GDScript",
+"path": "res://lut/components/camera_shake.gd"
+}, {
+"base": "Node",
 "class": "CanvasItEm",
 "language": "GDScript",
 "path": "res://lut/extension/canvas_item_extension.gd"
@@ -113,6 +118,11 @@ _global_script_classes=[ {
 "class": "Gravity",
 "language": "GDScript",
 "path": "res://lut/components/gravity.gd"
+}, {
+"base": "Node2D",
+"class": "HardLand",
+"language": "GDScript",
+"path": "res://src/components/land.gd"
 }, {
 "base": "Node",
 "class": "Health",
@@ -311,6 +321,7 @@ _global_script_class_icons={
 "BlockSticker": "",
 "ButtonInput": "",
 "Camera3Pivot": "",
+"CameraShake": "",
 "CanvasItEm": "",
 "CollisionExtents": "",
 "ComponentDisabler": "",
@@ -326,6 +337,7 @@ _global_script_class_icons={
 "FuncREf": "",
 "GEometry": "",
 "Gravity": "",
+"HardLand": "",
 "Health": "",
 "IButtonInput": "",
 "IDirectionalInput": "",
