@@ -5159,15 +5159,6 @@ height = 2.5
 jump_lock_distance_x = 0.8
 speed_x = 7.0
 
-[node name="LowMantle" type="Node2D" parent="."]
-script = ExtResource( 28 )
-offset = Vector2( 1, -9 )
-_area_path = NodePath("../RootSprite/LowMantleArea")
-_hint_path = NodePath("../RootSprite/LowMantleHint")
-keep_x_speed = true
-allow_jump = true
-units_per_sec = 3.0
-
 [node name="HighMantle" type="Node2D" parent="."]
 script = ExtResource( 28 )
 animation = "mantle_high"
@@ -5189,6 +5180,15 @@ script = ExtResource( 18 )
 action_name = "dodge"
 _priority_node_path = NodePath("../PriorityAnimationPlayer/Dodge")
 allow_gravity = true
+
+[node name="LowMantle" type="Node2D" parent="."]
+script = ExtResource( 28 )
+offset = Vector2( 1, -9 )
+_area_path = NodePath("../RootSprite/LowMantleArea")
+_hint_path = NodePath("../RootSprite/LowMantleHint")
+preserve_speed = true
+allow_jump = true
+units_per_sec = 3.0
 
 [node name="HardFall" type="Node2D" parent="."]
 script = ExtResource( 34 )

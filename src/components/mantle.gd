@@ -6,7 +6,7 @@ export(NodePath) var _anim_priority_node_path := NodePath()
 export(Vector2) var offset := Vector2.ZERO
 export(NodePath) var _area_path := NodePath()
 export(NodePath) var _hint_path := NodePath()
-export(bool) var keep_x_speed := false
+export(bool) var preserve_speed := false
 export(bool) var allow_jump := false
 export(float) var units_per_sec := 1.0
 
@@ -118,7 +118,9 @@ func _mantle() -> void:
 		return
 	
 	_is_mantling = true
-	set_physics_process(true)
+	
+	if _use_animation():
+		set_physics_process(true)
 	
 	var hint_offset := _body.to_local(hint.global_position)
 	
@@ -137,11 +139,10 @@ func _mantle() -> void:
 	if _use_animation():
 		_disabler.disable_below(self)
 	
-	if keep_x_speed:
-		_velocity.value.y = 0.0
-		_run.enable()
-	else:
+	if not preserve_speed:
 		_velocity.value = Vector2.ZERO
+	elif preserve_speed and _use_animation():
+		assert(false, 'not supported')
 	
 	if _use_animation():
 		_animation.callback_on_finished(animation, anim_priority_node, self, '_on_mantle_finished')
