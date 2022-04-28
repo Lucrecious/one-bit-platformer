@@ -2,7 +2,6 @@ extends Node2D
 
 const HARD_LAND_TERMINAL_MSEC := 300
 
-export(String) var land_anim := 'land'
 export(NodePath) var _priority_node_path := NodePath()
 export(float) var terminal_velocity := 17.0
 
@@ -61,7 +60,7 @@ func _on_floor_hit() -> void:
 	_gravity.enable()
 	_velocity.value.x = 0
 	
-	_animation.callback_on_finished(land_anim, _priority_node, self, '_on_land_finished')
+	_animation.callback_on_finished_by_node(_priority_node, self, '_on_land_finished')
 
 func _on_land_finished() -> void:
 	if not _enabled:
