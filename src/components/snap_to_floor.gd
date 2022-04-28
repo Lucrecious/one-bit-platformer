@@ -19,7 +19,7 @@ func _on_about_to_floor_left() -> void:
 	
 	var delta := Vector2(0, check_units * _velocity.units + margin_pixels)
 	var hit_floor := _body.move_and_collide(delta, true, true, true)
-	if not hit_floor:
+	if not hit_floor or not hit_floor.normal.is_equal_approx(_velocity.up_direction):
 		return
 	
 	delta = hit_floor.travel
