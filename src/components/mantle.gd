@@ -119,25 +119,20 @@ func _mantle() -> void:
 	
 	_is_mantling = true
 	
-	if _use_animation():
-		set_physics_process(true)
-	
 	var hint_offset := _body.to_local(hint.global_position)
 	
 	var previous_position := _body.global_position
 	_body.global_position = _current_mantle_point.global_position - hint_offset + Vector2(offset.x * _current_x_direction, offset.y)
 	
 	var delta := _body.global_position - previous_position
-	_sync_tween.remove_all()
 	
 	_root_sprite.position -= delta
 	var sec := delta.length() / (units_per_sec * _velocity.units)
+	
+	_sync_tween.remove_all()
 	_sync_tween.interpolate_property(_root_sprite, 'position:y', null, 0.0, sec, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	_sync_tween.interpolate_property(_root_sprite, 'position:x', null, 0.0, sec, Tween.TRANS_QUAD, Tween.EASE_OUT, sec / 2.0)
 	_sync_tween.start()
-	
-	if _use_animation():
-		_disabler.disable_below(self)
 	
 	if not preserve_speed:
 		_velocity.value = Vector2.ZERO
@@ -145,6 +140,8 @@ func _mantle() -> void:
 		assert(false, 'not supported')
 	
 	if _use_animation():
+		_disabler.disable_below(self)
+		set_physics_process(true)
 		_animation.callback_on_finished(animation, anim_priority_node, self, '_on_mantle_finished')
 	else:
 		_on_mantle_finished()

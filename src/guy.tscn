@@ -5192,7 +5192,7 @@ units_per_sec = 3.0
 
 [node name="HardFall" type="Node2D" parent="."]
 script = ExtResource( 34 )
-_instant_fall_speed = 40.0
+_instant_fall_speed = 100.0
 _priority_node_path = NodePath("../PriorityAnimationPlayer/StartHardFall")
 
 [node name="Node" type="Node" parent="."]
