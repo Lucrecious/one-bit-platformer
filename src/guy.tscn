@@ -4831,10 +4831,10 @@ tracks/29/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=44]
-extents = Vector2( 3, 5 )
+extents = Vector2( 5, 5 )
 
 [sub_resource type="RectangleShape2D" id=46]
-extents = Vector2( 3, 6 )
+extents = Vector2( 1.5, 6 )
 
 [node name="Guy" type="KinematicBody2D" groups=["player"]]
 collision_mask = 0
@@ -5147,7 +5147,7 @@ _air_velocity_calculation = ExtResource( 16 )
 [node name="Jump" type="Node2D" parent="."]
 script = ExtResource( 10 )
 coyote_time_msec = 150
-height = 3.0
+height = 2.0
 
 [node name="WallGrip" type="Node2D" parent="."]
 script = ExtResource( 14 )
@@ -5195,16 +5195,6 @@ script = ExtResource( 34 )
 _instant_fall_speed = 100.0
 _priority_node_path = NodePath("../PriorityAnimationPlayer/StartHardFall")
 
-[node name="Node" type="Node" parent="."]
-
-[node name="ReferenceRect" type="ReferenceRect" parent="Node"]
-visible = false
-margin_left = 5.0
-margin_top = -35.0
-margin_right = 45.0
-margin_bottom = 5.0
-mouse_filter = 2
-
 [connection signal="direction_changed" from="Controller/Direction1" to="PriorityAnimationPlayer/Run" method="on_condition_changed"]
 [connection signal="direction_changed" from="Controller/Direction1" to="PriorityAnimationPlayer/Slide" method="on_condition_changed"]
 [connection signal="floor_hit" from="Velocity" to="PriorityAnimationPlayer/Fall" method="on_condition_changed"]
@@ -5217,9 +5207,9 @@ mouse_filter = 2
 [connection signal="x_direction_changed" from="Velocity" to="Turner" method="update_direction_by_controller"]
 [connection signal="y_direction_changed" from="Velocity" to="PriorityAnimationPlayer/Fall" method="on_condition_changed"]
 [connection signal="y_direction_changed" from="Velocity" to="PriorityAnimationPlayer/JumpUp" method="on_condition_changed"]
-[connection signal="y_direction_changed" from="Velocity" to="PriorityAnimationPlayer/WallRun" method="on_condition_changed"]
 [connection signal="y_direction_changed" from="Velocity" to="PriorityAnimationPlayer/WallSlide" method="on_condition_changed"]
-[connection signal="gripped" from="WallGrip" to="PriorityAnimationPlayer/WallRun" method="on_condition_changed"]
+[connection signal="y_direction_changed" from="Velocity" to="PriorityAnimationPlayer/WallRun" method="on_condition_changed"]
 [connection signal="gripped" from="WallGrip" to="PriorityAnimationPlayer/WallSlide" method="on_condition_changed"]
-[connection signal="released" from="WallGrip" to="PriorityAnimationPlayer/WallRun" method="on_condition_changed"]
+[connection signal="gripped" from="WallGrip" to="PriorityAnimationPlayer/WallRun" method="on_condition_changed"]
 [connection signal="released" from="WallGrip" to="PriorityAnimationPlayer/WallSlide" method="on_condition_changed"]
+[connection signal="released" from="WallGrip" to="PriorityAnimationPlayer/WallRun" method="on_condition_changed"]
