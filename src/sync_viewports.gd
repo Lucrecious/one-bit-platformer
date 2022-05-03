@@ -34,4 +34,3 @@ func _ready() -> void:
 func _process(delta) -> void:
 	_sprite.global_transform = get_tree().root.canvas_transform.inverse()
 	_canvas_layer.transform = get_tree().root.canvas_transform
-	return
