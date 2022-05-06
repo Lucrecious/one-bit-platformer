@@ -159,6 +159,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://lut/level_editor2/level_editor2.gd"
 }, {
+"base": "Node",
+"class": "LevelEditor2Commands",
+"language": "GDScript",
+"path": "res://lut/level_editor2/commands.gd"
+}, {
 "base": "Node2D",
 "class": "Mantle",
 "language": "GDScript",
@@ -365,6 +370,7 @@ _global_script_class_icons={
 "Input_ActionBinding_Directional": "",
 "Level2": "",
 "LevelEditor2": "",
+"LevelEditor2Commands": "",
 "Mantle": "",
 "MathE": "",
 "Move4": "",
@@ -496,6 +502,16 @@ editor_left={
 editor_right={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+editor2_left_click={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":44,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+editor2_right_click={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":46,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 

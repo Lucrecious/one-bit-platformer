@@ -134,24 +134,40 @@ func fill(map: TileMap, region: Rect2, id := -1) -> void:
 		for j in region.size.y:
 			map.set_cell(region.position.x + i, region.position.y + j, id)
 
-static func add_mantle_points(map: TileMap, region: Rect2, mantle_size: float, mantle_collision) -> void:
-	for cell in map.get_used_cells():
-		if not region.has_point(cell):
+static func remove_mantle_points(map: TileMap, region: Rect2, mantle_collision: int) -> void:
+	region.position = map.map_to_world(region.position)
+	region.size *= map.cell_size
+	region = region.grow(3)
+	
+	for child in NodE.get_children(map, Area2D):
+		if child.collision_layer != mantle_collision:
 			continue
 		
-		var corners := _get_corners(map, cell)
-		for point in corners:
-			var area := Area2D.new()
-			var collision_shape := CollisionShape2D.new()
-			var circle := CircleShape2D.new()
-			circle.radius = mantle_size / 2.0
-			collision_shape.shape = circle
-			area.add_child(collision_shape)
-			map.add_child(area)
+		if not region.has_point(child.position):
+			continue
+		
+		child.queue_free()
+
+static func add_mantle_points(map: TileMap, region: Rect2, mantle_size: float, mantle_collision: int) -> void:
+	for x in region.size.x:
+		for y in region.size.y:
+			var cell := region.position + Vector2(x, y)
+			if map.get_cellv(cell) < 0:
+				continue
 			
-			area.position = point
-			area.collision_layer = mantle_collision
-			area.collision_mask = 0
+			var corners := _get_corners(map, cell)
+			for point in corners:
+				var area := Area2D.new()
+				var collision_shape := CollisionShape2D.new()
+				var circle := CircleShape2D.new()
+				circle.radius = mantle_size / 2.0
+				collision_shape.shape = circle
+				area.add_child(collision_shape)
+				map.add_child(area)
+				
+				area.position = point
+				area.collision_layer = mantle_collision
+				area.collision_mask = 0
 
 static func _get_corners(map: TileMap, cell: Vector2) -> Array:
 	if _is_empty(map, cell):
