@@ -149,6 +149,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://lut/input/bindings/directional.gd"
 }, {
+"base": "Node",
+"class": "Level2",
+"language": "GDScript",
+"path": "res://lut/level_editor2/level2.gd"
+}, {
+"base": "CanvasLayer",
+"class": "LevelEditor2",
+"language": "GDScript",
+"path": "res://lut/level_editor2/level_editor2.gd"
+}, {
 "base": "Node2D",
 "class": "Mantle",
 "language": "GDScript",
@@ -264,6 +274,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://lut/nodes/sprite_flattener.gd"
 }, {
+"base": "Control",
+"class": "TileActionMode",
+"language": "GDScript",
+"path": "res://lut/level_editor2/tile_mode.gd"
+}, {
+"base": "Node2D",
+"class": "TileMapCursor",
+"language": "GDScript",
+"path": "res://lut/level_editor2/tilemap_cursor.gd"
+}, {
 "base": "Node2D",
 "class": "TileMapGenerator",
 "language": "GDScript",
@@ -343,6 +363,8 @@ _global_script_class_icons={
 "IDirectionalInput": "",
 "Input_ActionBinding": "",
 "Input_ActionBinding_Directional": "",
+"Level2": "",
+"LevelEditor2": "",
 "Mantle": "",
 "MathE": "",
 "Move4": "",
@@ -366,6 +388,8 @@ _global_script_class_icons={
 "SignalDetector": "",
 "SignalExpression": "",
 "SpriteFlattener": "",
+"TileActionMode": "",
+"TileMapCursor": "",
 "TileMapGenerator": "",
 "TimEr": "",
 "TurnBased_Command": "",
@@ -383,6 +407,10 @@ _global_script_class_icons={
 config/name="block_fall"
 run/main_scene="res://src/main.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+LevelEditor="*res://lut/level_editor2/level_editor2.tscn"
 
 [display]
 
@@ -448,6 +476,26 @@ down={
 dodge={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":90,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+editor_up={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+editor_down={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+editor_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+editor_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 
