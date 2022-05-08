@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://lut/components/root_sprite.gd" type="Script" id=1]
 [ext_resource path="res://lut/components/extents.gd" type="Script" id=2]
@@ -34,6 +34,7 @@
 [ext_resource path="res://src/components/snap_to_floor.gd" type="Script" id=32]
 [ext_resource path="res://src/components/camera_to_root_sprite.gd" type="Script" id=33]
 [ext_resource path="res://src/components/hard_fall.gd" type="Script" id=34]
+[ext_resource path="res://src/vfx/dust.tscn" type="PackedScene" id=35]
 
 [sub_resource type="RectangleShape2D" id=47]
 extents = Vector2( 5, 12 )
@@ -2999,7 +3000,7 @@ tracks/30/keys = {
 "times": PoolRealArray( 0, 0.12, 0.25, 0.35 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 14.0, 10.0, 5.0, 0.0 ]
+"values": [ 21.0, 14.0, 10.0, 0.0 ]
 }
 
 [sub_resource type="Animation" id=34]
@@ -5089,6 +5090,8 @@ shape = SubResource( 46 )
 [node name="HighMantleHint" type="Position2D" parent="RootSprite"]
 position = Vector2( 5, -35 )
 
+[node name="Dust" parent="." instance=ExtResource( 35 )]
+
 [node name="Controller" type="Node" parent="."]
 script = ExtResource( 6 )
 
@@ -5213,3 +5216,4 @@ _priority_node_path = NodePath("../PriorityAnimationPlayer/StartHardFall")
 [connection signal="gripped" from="WallGrip" to="PriorityAnimationPlayer/WallRun" method="on_condition_changed"]
 [connection signal="released" from="WallGrip" to="PriorityAnimationPlayer/WallSlide" method="on_condition_changed"]
 [connection signal="released" from="WallGrip" to="PriorityAnimationPlayer/WallRun" method="on_condition_changed"]
+[connection signal="landed_hard" from="Land" to="Dust" method="restart"]

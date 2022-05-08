@@ -152,4 +152,8 @@ func _on_mantle_finished() -> void:
 	
 	set_physics_process(false)
 	_is_mantling = false
+	
+	if not _use_animation():
+		return
+	
 	_disabler.enable_below(self)
