@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://src/main_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://src/guy.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://src/components/camera.gd" type="Script" id=7]
 [ext_resource path="res://src/actors/button.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/actors/door.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/music/level1.ogg" type="AudioStream" id=10]
 
 [sub_resource type="ShaderMaterial" id=8]
 shader = ExtResource( 5 )
@@ -32,6 +33,11 @@ script = ExtResource( 4 )
 _canvas_layer_path = NodePath("CharacterLayer")
 _viewport_path = NodePath("CharacterViewport")
 _sprite_path = NodePath("CharacterRender")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+volume_db = -7.0
+autoplay = true
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1

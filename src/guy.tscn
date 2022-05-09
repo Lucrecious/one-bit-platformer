@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://lut/components/root_sprite.gd" type="Script" id=1]
 [ext_resource path="res://lut/components/extents.gd" type="Script" id=2]
@@ -35,6 +35,17 @@
 [ext_resource path="res://src/components/camera_to_root_sprite.gd" type="Script" id=33]
 [ext_resource path="res://src/components/hard_fall.gd" type="Script" id=34]
 [ext_resource path="res://src/vfx/dust.tscn" type="PackedScene" id=35]
+[ext_resource path="res://assets/sounds/footstep2.wav" type="AudioStream" id=36]
+[ext_resource path="res://assets/sounds/footstep1.wav" type="AudioStream" id=37]
+[ext_resource path="res://lut/extension/audio_stream_player_2d_extension.gd" type="Script" id=38]
+[ext_resource path="res://assets/sounds/hard_land.wav" type="AudioStream" id=39]
+[ext_resource path="res://assets/sounds/roll.wav" type="AudioStream" id=40]
+
+[sub_resource type="AudioStreamRandomPitch" id=54]
+audio_stream = ExtResource( 37 )
+
+[sub_resource type="AudioStreamRandomPitch" id=53]
+audio_stream = ExtResource( 36 )
 
 [sub_resource type="RectangleShape2D" id=47]
 extents = Vector2( 5, 12 )
@@ -3002,6 +3013,20 @@ tracks/30/keys = {
 "update": 0,
 "values": [ 21.0, 14.0, 10.0, 0.0 ]
 }
+tracks/31/type = "method"
+tracks/31/path = NodePath("Sounds/Roll")
+tracks/31/interp = 1
+tracks/31/loop_wrap = true
+tracks/31/imported = false
+tracks/31/enabled = true
+tracks/31/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+} ]
+}
 
 [sub_resource type="Animation" id=34]
 resource_name = "run"
@@ -3367,6 +3392,23 @@ tracks/29/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ 0.0, -20.1413, -23.9842, -23.9842, -23.9842, -20.1413, -20.1413, -20.1413 ]
+}
+tracks/30/type = "method"
+tracks/30/path = NodePath("Sounds/Footstep1")
+tracks/30/interp = 1
+tracks/30/loop_wrap = true
+tracks/30/imported = false
+tracks/30/enabled = true
+tracks/30/keys = {
+"times": PoolRealArray( 0.025, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play_if_not_playing"
+}, {
+"args": [ 0.0 ],
+"method": "play_if_not_playing"
+} ]
 }
 
 [sub_resource type="Animation" id=49]
@@ -4843,6 +4885,26 @@ __meta__ = {
 "_edit_vertical_guides_": [  ]
 }
 
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="Footstep1" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = SubResource( 54 )
+script = ExtResource( 38 )
+
+[node name="Jump" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = SubResource( 53 )
+script = ExtResource( 38 )
+
+[node name="HardLand" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource( 39 )
+script = ExtResource( 38 )
+
+[node name="Roll" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource( 40 )
+volume_db = -4.0
+pitch_scale = 0.9
+script = ExtResource( 38 )
+
 [node name="CollisionExtents" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -12 )
 shape = SubResource( 47 )
@@ -5200,6 +5262,7 @@ _priority_node_path = NodePath("../PriorityAnimationPlayer/StartHardFall")
 
 [connection signal="direction_changed" from="Controller/Direction1" to="PriorityAnimationPlayer/Run" method="on_condition_changed"]
 [connection signal="direction_changed" from="Controller/Direction1" to="PriorityAnimationPlayer/Slide" method="on_condition_changed"]
+[connection signal="floor_hit" from="Velocity" to="Sounds/Footstep1" method="play_if_not_playing"]
 [connection signal="floor_hit" from="Velocity" to="PriorityAnimationPlayer/Fall" method="on_condition_changed"]
 [connection signal="floor_hit" from="Velocity" to="PriorityAnimationPlayer/JumpUp" method="on_condition_changed"]
 [connection signal="floor_hit" from="Velocity" to="Turner" method="update_direction_by_controller"]
@@ -5212,8 +5275,10 @@ _priority_node_path = NodePath("../PriorityAnimationPlayer/StartHardFall")
 [connection signal="y_direction_changed" from="Velocity" to="PriorityAnimationPlayer/JumpUp" method="on_condition_changed"]
 [connection signal="y_direction_changed" from="Velocity" to="PriorityAnimationPlayer/WallSlide" method="on_condition_changed"]
 [connection signal="y_direction_changed" from="Velocity" to="PriorityAnimationPlayer/WallRun" method="on_condition_changed"]
+[connection signal="impulsed" from="Jump" to="Sounds/Jump" method="play_if_not_playing"]
 [connection signal="gripped" from="WallGrip" to="PriorityAnimationPlayer/WallSlide" method="on_condition_changed"]
 [connection signal="gripped" from="WallGrip" to="PriorityAnimationPlayer/WallRun" method="on_condition_changed"]
 [connection signal="released" from="WallGrip" to="PriorityAnimationPlayer/WallSlide" method="on_condition_changed"]
 [connection signal="released" from="WallGrip" to="PriorityAnimationPlayer/WallRun" method="on_condition_changed"]
+[connection signal="landed_hard" from="Land" to="Sounds/HardLand" method="play_if_not_playing"]
 [connection signal="landed_hard" from="Land" to="Dust" method="restart"]

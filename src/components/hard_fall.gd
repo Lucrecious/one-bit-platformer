@@ -1,5 +1,7 @@
 extends Node2D
 
+signal landed()
+
 export(float) var _instant_fall_speed := 1.0
 export(String) var action := 'dodge'
 export(NodePath) var _priority_node_path := NodePath()

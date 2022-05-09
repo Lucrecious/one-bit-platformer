@@ -41,13 +41,14 @@ func enable() -> void:
 	_enabled = true
 	_controller.connect('direction1_changed', self, '_on_direction1_changed')
 	_controller.connect('jump_just_pressed', self, '_on_jump_just_pressed')
+	area.connect('area_entered', self, '_on_area_entered')
+	area.connect('area_exited', self, '_on_area_exited')
+	
 	_on_direction1_changed(_controller.get_direction(0))
 	
-	area.connect('area_entered', self, '_on_area_entered')
 	var overlaps := area.get_overlapping_areas()
 	if not overlaps.empty():
 		_on_area_entered(overlaps[0])
-	area.connect('area_exited', self, '_on_area_exited')
 	
 func disable() -> void:
 	if not _enabled:
