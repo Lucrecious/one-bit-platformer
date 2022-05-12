@@ -440,6 +440,10 @@ window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep_width"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/tilemap_rect_manipulators/plugin.cfg" )
+
 [importer_defaults]
 
 texture={
