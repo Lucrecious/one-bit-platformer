@@ -1,5 +1,7 @@
 extends Area2D
 
+const WALL_FLOOR_THRESHOLD_RADIANS := PI / 4.0
+
 export(NodePath) var _player_path := NodePath()
 
 onready var player := get_node(_player_path) as Node2D
@@ -31,45 +33,76 @@ func _physics_process(delta: float) -> void:
 	
 	var viewport_size := get_viewport_rect().size
 	
-	var bottom := space.intersect_ray(
-		player.global_position,
-		player.global_position + Vector2.DOWN * viewport_size.y, [],
-		collision_layer, false, true)
-	
-	if not bottom.empty() and abs(bottom.normal.angle_to(Vector2.UP)) < PI / 4.0:
+	# I'm doing a manual xray
+	var ray_start := player.global_position
+	_camera.limit_bottom = 1_000_000
+	while true:
+		var bottom := space.intersect_ray(
+			ray_start,
+			player.global_position + Vector2.DOWN * viewport_size.y, [],
+			collision_layer, false, true)
+		
+		if bottom.empty():
+			break
+		
+		if abs(bottom.normal.angle_to(Vector2.UP)) >= WALL_FLOOR_THRESHOLD_RADIANS:
+			ray_start = bottom.position + Vector2.DOWN * .01
+			continue
+		
 		_camera.limit_bottom = bottom.position.y
-	else:
-		_camera.limit_bottom = 1_000_000
+		break
 	
-	var top := space.intersect_ray(
-		player.global_position,
-		player.global_position + Vector2.UP * viewport_size.y, [],
-		collision_layer, false, true)
+	ray_start = player.global_position
+	_camera.limit_top = -1_000_000
+	while true:
+		var top := space.intersect_ray(
+			ray_start,
+			player.global_position + Vector2.UP * viewport_size.y, [],
+			collision_layer, false, true)
+		
+		if top.empty():
+			break
 	
-	if not top.empty() and abs(top.normal.angle_to(Vector2.DOWN)) < PI / 4.0:
+		if abs(top.normal.angle_to(Vector2.DOWN)) >= WALL_FLOOR_THRESHOLD_RADIANS:
+			ray_start = top.position + Vector2.UP * .01
+			continue
+		
 		# this ensures the bottom camera line has priority over the top one
 		_camera.limit_top = min(top.position.y, _camera.limit_bottom - viewport_size.y)
-	else:
-		_camera.limit_top = -1_000_000
+		break
 	
+	ray_start = player.global_position
+	_camera.limit_left = -1_000_000
+	while true:
+		var left := space.intersect_ray(
+			ray_start,
+			player.global_position + Vector2.LEFT * viewport_size.x, [],
+			collision_layer, false, true)
 	
-	var left := space.intersect_ray(
-		player.global_position,
-		player.global_position + Vector2.LEFT * viewport_size.x, [],
-		collision_layer, false, true)
-	
-	if not left.empty() and abs(left.normal.angle_to(Vector2.RIGHT)) < PI / 4.0:
+		if left.empty():
+			break
+		 
+		if abs(left.normal.angle_to(Vector2.RIGHT)) >= WALL_FLOOR_THRESHOLD_RADIANS:
+			ray_start = left.position + Vector2.LEFT * .01
+			continue
+		
 		_camera.limit_left = left.position.x
-	else:
-		_camera.limit_left = -1_000_000
+		break
 	
-	
-	var right := space.intersect_ray(
-		player.global_position,
-		player.global_position + Vector2.RIGHT * viewport_size.x, [],
-		collision_layer, false, true)
-	
-	if not right.empty() and abs(right.normal.angle_to(Vector2.LEFT)) < PI / 4.0:
+	ray_start = player.global_position
+	_camera.limit_right = 1_000_000
+	while true:
+		var right := space.intersect_ray(
+			ray_start,
+			player.global_position + Vector2.RIGHT * viewport_size.x, [],
+			collision_layer, false, true)
+		
+		if right.empty():
+			break
+		
+		if abs(right.normal.angle_to(Vector2.LEFT)) >= WALL_FLOOR_THRESHOLD_RADIANS:
+			ray_start = right.position + Vector2.RIGHT * .01
+			continue
+		
 		_camera.limit_right = right.position.x
-	else:
-		_camera.limit_right = 1_000_000
+		break

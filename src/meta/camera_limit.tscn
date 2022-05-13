@@ -1,0 +1,7 @@
+[gd_scene format=2]
+
+[node name="CameraLimit" type="Area2D" groups=["camera_limit"]]
+position = Vector2( 128, 224 )
+collision_layer = 0
+collision_mask = 16
+monitorable = false

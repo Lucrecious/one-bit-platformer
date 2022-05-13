@@ -281,7 +281,11 @@ points = PoolVector2Array( -32, -944, 1072, -944, 1072, -1776, 1872, -1776 )
 
 [node name="Line2D3" type="Line2D" parent="CameraLimits"]
 position = Vector2( -32, 144 )
-points = PoolVector2Array( -32, -944, -32, 288, 1088, 288, 1728, 80, 1728, -1488, 1440, -1488 )
+points = PoolVector2Array( -32, -944, -32, 288, 1088, 288, 1728, 80, 1728, -1488, 1392, -1440 )
+
+[node name="Line2D6" type="Line2D" parent="CameraLimits"]
+position = Vector2( -32, 144 )
+points = PoolVector2Array( 1728, 80, 1728, 336 )
 
 [node name="Line2D4" type="Line2D" parent="CameraLimits"]
 position = Vector2( -32, 144 )
