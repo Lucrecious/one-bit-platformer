@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=2]
+[gd_scene load_steps=61 format=2]
 
 [ext_resource path="res://lut/components/root_sprite.gd" type="Script" id=1]
 [ext_resource path="res://lut/components/extents.gd" type="Script" id=2]
@@ -40,6 +40,9 @@
 [ext_resource path="res://lut/extension/audio_stream_player_2d_extension.gd" type="Script" id=38]
 [ext_resource path="res://assets/sounds/hard_land.wav" type="AudioStream" id=39]
 [ext_resource path="res://assets/sounds/roll.wav" type="AudioStream" id=40]
+
+[sub_resource type="SegmentShape2D" id=55]
+b = Vector2( 0, 0 )
 
 [sub_resource type="AudioStreamRandomPitch" id=54]
 audio_stream = ExtResource( 37 )
@@ -4885,6 +4888,15 @@ __meta__ = {
 "_edit_vertical_guides_": [  ]
 }
 
+[node name="CameraPointArea" type="Area2D" parent="."]
+position = Vector2( 0, -27 )
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraPointArea"]
+shape = SubResource( 55 )
+
 [node name="Sounds" type="Node2D" parent="."]
 
 [node name="Footstep1" type="AudioStreamPlayer2D" parent="Sounds"]
@@ -5152,6 +5164,8 @@ shape = SubResource( 46 )
 [node name="HighMantleHint" type="Position2D" parent="RootSprite"]
 position = Vector2( 5, -35 )
 
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="RootSprite"]
+
 [node name="Dust" parent="." instance=ExtResource( 35 )]
 
 [node name="Controller" type="Node" parent="."]
@@ -5170,6 +5184,7 @@ down = "down"
 
 [node name="CameraToRootSprite" type="Node" parent="."]
 script = ExtResource( 33 )
+_remote_transform_path = NodePath("../RootSprite/RemoteTransform2D")
 
 [node name="Velocity" type="Node2D" parent="."]
 script = ExtResource( 4 )
