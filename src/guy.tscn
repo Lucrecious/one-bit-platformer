@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://lut/components/root_sprite.gd" type="Script" id=1]
 [ext_resource path="res://lut/components/extents.gd" type="Script" id=2]
@@ -40,6 +40,10 @@
 [ext_resource path="res://lut/extension/audio_stream_player_2d_extension.gd" type="Script" id=38]
 [ext_resource path="res://assets/sounds/hard_land.wav" type="AudioStream" id=39]
 [ext_resource path="res://assets/sounds/roll.wav" type="AudioStream" id=40]
+[ext_resource path="res://src/components/wall_breaker.gd" type="Script" id=41]
+
+[sub_resource type="CircleShape2D" id=56]
+radius = 7.0
 
 [sub_resource type="SegmentShape2D" id=55]
 b = Vector2( 0, 0 )
@@ -4887,6 +4891,18 @@ collision_mask = 0
 __meta__ = {
 "_edit_vertical_guides_": [  ]
 }
+
+[node name="WallBreaker" type="Node2D" parent="."]
+script = ExtResource( 41 )
+
+[node name="Area" type="Area2D" parent="WallBreaker"]
+collision_layer = 0
+collision_mask = 64
+monitorable = false
+
+[node name="Collision" type="CollisionShape2D" parent="WallBreaker/Area"]
+position = Vector2( 0, -7 )
+shape = SubResource( 56 )
 
 [node name="CameraPointArea" type="Area2D" parent="."]
 position = Vector2( 0, -27 )
