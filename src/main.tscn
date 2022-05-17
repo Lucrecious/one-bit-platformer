@@ -252,7 +252,7 @@ position = Vector2( 924, -944 )
 [node name="CharacterLayer" type="CanvasLayer" parent="."]
 
 [node name="Guy" parent="CharacterLayer" instance=ExtResource( 2 )]
-position = Vector2( 64, 224 )
+position = Vector2( 592, -672 )
 
 [node name="Camera" type="Camera2D" parent="CharacterLayer/Guy"]
 current = true
