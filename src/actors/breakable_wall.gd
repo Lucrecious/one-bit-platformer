@@ -1,6 +1,8 @@
 class_name BreakableWall
 extends Node2D
 
+signal destroyed()
+
 onready var _solid := $Solid as StaticBody2D
 onready var _area_break := $AreaBreak as Area2D
 
@@ -26,6 +28,8 @@ func destroy(velocity: Vector2) -> void:
 	remove_physics_timer.autostart = true
 	
 	remove_physics_timer.connect('timeout', self, '_on_destroyed_timeout', [], CONNECT_ONESHOT)
+	
+	emit_signal('destroyed')
 	
 	add_child(remove_physics_timer)
 	

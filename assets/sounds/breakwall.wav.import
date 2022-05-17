@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/breakwall.wav-b0688ba20a55a87cc3ec4e90150cbeff.sample"
+
+[deps]
+
+source_file="res://assets/sounds/breakwall.wav"
+dest_files=[ "res://.import/breakwall.wav-b0688ba20a55a87cc3ec4e90150cbeff.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

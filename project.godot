@@ -358,6 +358,11 @@ _global_script_classes=[ {
 "class": "Velocity3",
 "language": "GDScript",
 "path": "res://lut/components_3d/velocity3.gd"
+}, {
+"base": "Node2D",
+"class": "WallBreaker",
+"language": "GDScript",
+"path": "res://src/components/wall_breaker.gd"
 } ]
 _global_script_class_icons={
 "AudioStrEamPlayer2D": "",
@@ -429,7 +434,8 @@ _global_script_class_icons={
 "UI_SliderProperty": "",
 "VFX": "",
 "Velocity": "",
-"Velocity3": ""
+"Velocity3": "",
+"WallBreaker": ""
 }
 
 [application]

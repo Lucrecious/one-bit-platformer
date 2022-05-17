@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://lut/components/root_sprite.gd" type="Script" id=1]
 [ext_resource path="res://lut/components/extents.gd" type="Script" id=2]
@@ -41,6 +41,8 @@
 [ext_resource path="res://assets/sounds/hard_land.wav" type="AudioStream" id=39]
 [ext_resource path="res://assets/sounds/roll.wav" type="AudioStream" id=40]
 [ext_resource path="res://src/components/wall_breaker.gd" type="Script" id=41]
+[ext_resource path="res://assets/sounds/wall_impact.wav" type="AudioStream" id=42]
+[ext_resource path="res://src/components/freeze_framer.gd" type="Script" id=43]
 
 [sub_resource type="CircleShape2D" id=56]
 radius = 7.0
@@ -4892,6 +4894,9 @@ __meta__ = {
 "_edit_vertical_guides_": [  ]
 }
 
+[node name="FreezeFramer" type="Node" parent="."]
+script = ExtResource( 43 )
+
 [node name="WallBreaker" type="Node2D" parent="."]
 script = ExtResource( 41 )
 
@@ -4930,6 +4935,11 @@ script = ExtResource( 38 )
 [node name="Roll" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource( 40 )
 volume_db = -4.0
+pitch_scale = 0.9
+script = ExtResource( 38 )
+
+[node name="WallImpact" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource( 42 )
 pitch_scale = 0.9
 script = ExtResource( 38 )
 
@@ -5291,6 +5301,8 @@ script = ExtResource( 34 )
 _instant_fall_speed = 100.0
 _priority_node_path = NodePath("../PriorityAnimationPlayer/StartHardFall")
 
+[connection signal="impacted_wall" from="WallBreaker" to="Sounds/WallImpact" method="play"]
+[connection signal="impacted_wall" from="WallBreaker" to="FreezeFramer" method="freeze" binds= [ 0.07 ]]
 [connection signal="direction_changed" from="Controller/Direction1" to="PriorityAnimationPlayer/Run" method="on_condition_changed"]
 [connection signal="direction_changed" from="Controller/Direction1" to="PriorityAnimationPlayer/Slide" method="on_condition_changed"]
 [connection signal="floor_hit" from="Velocity" to="Sounds/Footstep1" method="play_if_not_playing"]

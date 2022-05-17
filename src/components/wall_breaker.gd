@@ -1,8 +1,12 @@
+class_name WallBreaker
 extends Node2D
+
+signal impacted_wall()
 
 onready var _velocity := Components.velocity(get_parent())
 onready var _dodge := NodE.get_sibling_with_error(self, Dodge) as Dodge
 onready var _area := NodE.get_child_with_error(self, Area2D) as Area2D
+onready var _turner := NodE.get_sibling_with_error(self, PlatformerTurner) as PlatformerTurner
 
 var _current_wall: BreakableWall = null
 
@@ -27,8 +31,10 @@ func _on_area_entered(area: Area2D) -> void:
 	destroy_wall(area)
 
 func destroy_wall(area: Area2D) -> void:
-	if _velocity.value.is_equal_approx(Vector2.ZERO):
-		area.get_parent().destroy(Vector2.ZERO)
-		return
+	var rock_direction := Vector2(_turner.direction, 0)
+	if not _velocity.value.is_equal_approx(Vector2.ZERO):
+		rock_direction = _velocity.value.normalized() 
 	
-	area.get_parent().destroy(_velocity.value.normalized() * 300.0)
+	area.get_parent().destroy(rock_direction * 300.0)
+	
+	emit_signal('impacted_wall')
