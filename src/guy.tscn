@@ -43,12 +43,10 @@
 [ext_resource path="res://src/components/wall_breaker.gd" type="Script" id=41]
 [ext_resource path="res://assets/sounds/wall_impact.wav" type="AudioStream" id=42]
 [ext_resource path="res://src/components/freeze_framer.gd" type="Script" id=43]
+[ext_resource path="res://src/components/guy_input_buffer.gd" type="Script" id=44]
 
 [sub_resource type="CircleShape2D" id=56]
 radius = 7.0
-
-[sub_resource type="SegmentShape2D" id=55]
-b = Vector2( 0, 0 )
 
 [sub_resource type="AudioStreamRandomPitch" id=54]
 audio_stream = ExtResource( 37 )
@@ -4894,6 +4892,9 @@ __meta__ = {
 "_edit_vertical_guides_": [  ]
 }
 
+[node name="InputBuffer" type="Node" parent="."]
+script = ExtResource( 44 )
+
 [node name="FreezeFramer" type="Node" parent="."]
 script = ExtResource( 43 )
 
@@ -4908,15 +4909,6 @@ monitorable = false
 [node name="Collision" type="CollisionShape2D" parent="WallBreaker/Area"]
 position = Vector2( 0, -7 )
 shape = SubResource( 56 )
-
-[node name="CameraPointArea" type="Area2D" parent="."]
-position = Vector2( 0, -27 )
-collision_layer = 16
-collision_mask = 0
-monitoring = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraPointArea"]
-shape = SubResource( 55 )
 
 [node name="Sounds" type="Node2D" parent="."]
 
@@ -4977,14 +4969,14 @@ script = ExtResource( 13 )
 condition_key = "run"
 _nodes_path = [ NodePath("../../Controller"), NodePath("../../Velocity") ]
 _properties = [ "get_direction(0)", "value" ]
-_expression_format = "{0}.x != 0.0 and {0}.x == sign({1}.x)"
+_expression_format = "sign({0}.x) != 0.0 and sign({0}.x) == sign({1}.x)"
 
 [node name="Slide" type="Node" parent="PriorityAnimationPlayer"]
 script = ExtResource( 13 )
 condition_key = "idle"
 _nodes_path = [ NodePath("../../Controller"), NodePath("../../Velocity") ]
 _properties = [ "get_direction(0)", "value" ]
-_expression_format = "{0}.x != 0 and abs({1}.x) > 0.1 and {0}.x != sign({1}.x)"
+_expression_format = "sign({0}.x) != 0 and abs({1}.x) > 0.1 and sign({0}.x) != sign({1}.x)"
 
 [node name="Fall" type="Node" parent="PriorityAnimationPlayer"]
 script = ExtResource( 13 )
@@ -5302,7 +5294,7 @@ _instant_fall_speed = 100.0
 _priority_node_path = NodePath("../PriorityAnimationPlayer/StartHardFall")
 
 [connection signal="impacted_wall" from="WallBreaker" to="Sounds/WallImpact" method="play"]
-[connection signal="impacted_wall" from="WallBreaker" to="FreezeFramer" method="freeze" binds= [ 0.07 ]]
+[connection signal="impacted_wall" from="WallBreaker" to="FreezeFramer" method="freeze" binds= [ 0.1 ]]
 [connection signal="direction_changed" from="Controller/Direction1" to="PriorityAnimationPlayer/Run" method="on_condition_changed"]
 [connection signal="direction_changed" from="Controller/Direction1" to="PriorityAnimationPlayer/Slide" method="on_condition_changed"]
 [connection signal="floor_hit" from="Velocity" to="Sounds/Footstep1" method="play_if_not_playing"]

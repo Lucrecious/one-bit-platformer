@@ -82,15 +82,21 @@ texture = SubResource( 12 )
 centered = false
 
 [node name="BreakableWall2" parent="." instance=ExtResource( 14 )]
-position = Vector2( 960, 48 )
+position = Vector2( 848, 48 )
 
 [node name="BreakableWall" parent="BreakableWall2" instance=ExtResource( 14 )]
 position = Vector2( 0, 32 )
 
 [node name="BreakableWall3" parent="." instance=ExtResource( 14 )]
-position = Vector2( 128, 48 )
+position = Vector2( 1120, 48 )
 
 [node name="BreakableWall" parent="BreakableWall3" instance=ExtResource( 14 )]
+position = Vector2( 0, 32 )
+
+[node name="BreakableWall5" parent="." instance=ExtResource( 14 )]
+position = Vector2( 192, 48 )
+
+[node name="BreakableWall" parent="BreakableWall5" instance=ExtResource( 14 )]
 position = Vector2( 0, 32 )
 
 [node name="TileMap2" type="TileMap" parent="."]

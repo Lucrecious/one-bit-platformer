@@ -28,3 +28,4 @@ func _freeze_frame(freeze: bool) -> void:
 	elif _animation.playback_process_mode == AnimationPlayer.ANIMATION_PROCESS_IDLE:
 		_animation.set_process_internal(enabled)
 	
+	_animation.replay_same_position_no_blend_no_changEd()
