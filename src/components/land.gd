@@ -72,6 +72,7 @@ func _on_floor_hit() -> void:
 	_disabler.disable_below(self)
 	_gravity.enable()
 	_velocity.value.x = 0
+	_velocity.value.y = 1
 	
 	_animation.callback_on_finished_by_node(_priority_node, self, '_on_land_finished')
 	
