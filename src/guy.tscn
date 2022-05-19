@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=2]
+[gd_scene load_steps=66 format=2]
 
 [ext_resource path="res://lut/components/root_sprite.gd" type="Script" id=1]
 [ext_resource path="res://lut/components/extents.gd" type="Script" id=2]
@@ -44,6 +44,7 @@
 [ext_resource path="res://assets/sounds/wall_impact.wav" type="AudioStream" id=42]
 [ext_resource path="res://src/components/freeze_framer.gd" type="Script" id=43]
 [ext_resource path="res://src/components/guy_input_buffer.gd" type="Script" id=44]
+[ext_resource path="res://src/components/guy_sounds.gd" type="Script" id=45]
 
 [sub_resource type="CircleShape2D" id=56]
 radius = 7.0
@@ -4911,6 +4912,7 @@ position = Vector2( 0, -7 )
 shape = SubResource( 56 )
 
 [node name="Sounds" type="Node2D" parent="."]
+script = ExtResource( 45 )
 
 [node name="Footstep1" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = SubResource( 54 )
@@ -4956,7 +4958,7 @@ anims/to_fall = SubResource( 37 )
 anims/wall_grip = SubResource( 38 )
 anims/wall_run = SubResource( 42 )
 next/to_fall = "fall"
-blend_times = [ "fall", "idle", 0.1, "fall", "jump_up", 0.1, "fall", "land", 0.1, "fall", "run", 0.1, "fall", "wall_run", 0.1, "idle", "fall", 0.1, "idle", "jump_up", 0.1, "idle", "roll", 0.1, "idle", "run", 0.1, "idle", "to_fall", 0.1, "jump_up", "fall", 0.1, "jump_up", "idle", 0.1, "jump_up", "run", 0.1, "jump_up", "wall_run", 0.1, "land", "fall", 0.1, "land", "idle", 0.1, "land", "jump_up", 0.1, "land", "roll", 0.1, "land", "run", 0.1, "mantle_high", "idle", 0.1, "mantle_high", "run", 0.1, "mantle_low", "idle", 0.1, "mantle_low", "run", 0.1, "run", "fall", 0.1, "run", "idle", 0.1, "run", "jump_up", 0.1, "run", "roll", 0.05, "run", "wall_run", 0.1, "wall_grip", "fall", 0.1, "wall_grip", "idle", 0.1, "wall_grip", "jump_up", 0.1, "wall_grip", "run", 0.1, "wall_grip", "wall_grip", 0.1, "wall_run", "fall", 0.1, "wall_run", "jump_up", 0.1, "wall_run", "wall_grip", 0.1 ]
+blend_times = [ "fall", "idle", 0.1, "fall", "jump_up", 0.1, "fall", "land", 0.1, "fall", "run", 0.1, "fall", "wall_run", 0.1, "idle", "fall", 0.1, "idle", "jump_up", 0.1, "idle", "roll", 0.1, "idle", "run", 0.1, "idle", "to_fall", 0.1, "jump_up", "fall", 0.1, "jump_up", "idle", 0.1, "jump_up", "run", 0.1, "jump_up", "wall_run", 0.1, "land", "fall", 0.1, "land", "idle", 0.1, "land", "jump_up", 0.1, "land", "roll", 0.1, "land", "run", 0.1, "mantle_high", "fall", 0.1, "mantle_high", "idle", 0.1, "mantle_high", "jump_up", 0.1, "mantle_high", "run", 0.1, "mantle_low", "idle", 0.1, "mantle_low", "run", 0.1, "run", "fall", 0.1, "run", "idle", 0.1, "run", "jump_up", 0.1, "run", "roll", 0.05, "run", "wall_run", 0.1, "wall_grip", "fall", 0.1, "wall_grip", "idle", 0.1, "wall_grip", "jump_up", 0.1, "wall_grip", "run", 0.1, "wall_grip", "wall_grip", 0.1, "wall_run", "fall", 0.1, "wall_run", "jump_up", 0.1, "wall_run", "wall_grip", 0.1 ]
 script = ExtResource( 12 )
 
 [node name="Idle" type="Node" parent="PriorityAnimationPlayer"]
@@ -5264,6 +5266,7 @@ _anim_priority_node_path = NodePath("../PriorityAnimationPlayer/Mantle")
 offset = Vector2( 10, -35 )
 _area_path = NodePath("../RootSprite/HighMantleArea")
 _hint_path = NodePath("../RootSprite/HighMantleHint")
+allow_jump = true
 units_per_sec = 5.0
 
 [node name="Land" type="Node2D" parent="."]
