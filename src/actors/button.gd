@@ -47,7 +47,7 @@ func unpress() -> void:
 	emit_signal('unpressed')
 
 func _on_body_entered(body: PhysicsBody2D) -> void:
-	var hard_land := NodE.get_child(body, HardLand) as HardLand
+	var hard_land := NodE.get_child(body, HardLand, false) as HardLand
 	if hard_land and (OS.get_ticks_msec() - hard_land.get_last_hard_land_msec()) < 50:
 		press()
 		return

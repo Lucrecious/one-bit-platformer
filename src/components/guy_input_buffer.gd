@@ -13,8 +13,8 @@ enum Type {
 onready var _controller := Components.controller(get_parent())
 onready var _body := get_parent() as KinematicBody2D
 onready var _velocity := Components.velocity(get_parent())
-onready var _dodge := NodE.get_sibling_with_error(self, Dodge) as Dodge
-onready var _jump := NodE.get_sibling_with_error(self, PlatformerJump) as PlatformerJump
+onready var _dodge := NodE.get_sibling(self, Dodge) as Dodge
+onready var _jump := NodE.get_sibling(self, PlatformerJump) as PlatformerJump
 
 var _current_buffer: int = Type.None
 var _buffered_msec := -BUFFER_LIMIT_MSEC

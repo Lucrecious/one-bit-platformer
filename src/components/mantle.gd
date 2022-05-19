@@ -20,8 +20,8 @@ onready var _disabler := Components.disabler(get_parent())
 onready var _velocity := Components.velocity(get_parent())
 onready var _animation := Components.priority_animation_player(get_parent())
 onready var _root_sprite := Components.root_sprite(get_parent())
-onready var _jump := NodE.get_sibling_with_error(self, PlatformerJump) as PlatformerJump
-onready var _run := NodE.get_sibling_with_error(self, PlatformerRun) as PlatformerRun
+onready var _jump := NodE.get_sibling(self, PlatformerJump) as PlatformerJump
+onready var _run := NodE.get_sibling(self, PlatformerRun) as PlatformerRun
 onready var _sync_tween := NodE.add_child(self, Tween.new()) as Tween
 
 var _enabled := false

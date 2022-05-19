@@ -5,7 +5,7 @@ signal fell()
 
 export(float, 0, 1_000_000) var speed := 100.0
 
-onready var _body := NodE.get_ancestor_with_error(self, KinematicBody2D) as KinematicBody2D
+onready var _body := NodE.get_ancestor(self, KinematicBody2D) as KinematicBody2D
 
 func _physics_process(delta: float) -> void:
 	var collide := _body.move_and_collide(Vector2(0, speed * delta))

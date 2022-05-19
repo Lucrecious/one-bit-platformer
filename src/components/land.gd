@@ -11,7 +11,7 @@ export(float) var velocity_no_msec_check := 20.0
 onready var _body := get_parent() as KinematicBody2D
 onready var _velocity := Components.velocity(get_parent())
 onready var _disabler := Components.disabler(get_parent())
-onready var _gravity := NodE.get_sibling_with_error(self, Gravity) as Gravity
+onready var _gravity := NodE.get_sibling(self, Gravity) as Gravity
 onready var _animation := Components.priority_animation_player(get_parent())
 onready var _priority_node := get_node(_priority_node_path)
 

@@ -4,9 +4,9 @@ extends Node2D
 signal impacted_wall()
 
 onready var _velocity := Components.velocity(get_parent())
-onready var _dodge := NodE.get_sibling_with_error(self, Dodge) as Dodge
-onready var _area := NodE.get_child_with_error(self, Area2D) as Area2D
-onready var _turner := NodE.get_sibling_with_error(self, PlatformerTurner) as PlatformerTurner
+onready var _dodge := NodE.get_sibling(self, Dodge) as Dodge
+onready var _area := NodE.get_child(self, Area2D) as Area2D
+onready var _turner := NodE.get_sibling(self, PlatformerTurner) as PlatformerTurner
 
 var _current_wall: BreakableWall = null
 

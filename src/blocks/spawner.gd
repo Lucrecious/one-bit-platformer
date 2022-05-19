@@ -10,7 +10,7 @@ func _active_set(value: bool) -> void:
 	active = value
 	set_physics_process(active)
 
-onready var _spawn_node := NodE.get_node_with_error(self, _spawn_node_path, Node2D) as Node2D
+onready var _spawn_node := NodE.get_node(self, _spawn_node_path, Node2D) as Node2D
 
 var _bodies_falling := {}
 

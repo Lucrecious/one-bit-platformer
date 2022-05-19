@@ -5,7 +5,7 @@ const WALL_FLOOR_THRESHOLD_RADIANS := PI / 4.0
 export(NodePath) var _player_path := NodePath()
 
 onready var player := get_node(_player_path) as Node2D
-onready var _camera := NodE.get_child_with_error(player, Camera2D) as Camera2D
+onready var _camera := NodE.get_child(player, Camera2D) as Camera2D
 
 
 func _ready() -> void:
