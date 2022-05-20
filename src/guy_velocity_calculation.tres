@@ -4,4 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-turn_speed_per_sec = 70.0
+on_target_acceleration = 70.0
+over_target_against = 40.0
+over_target_neutral = 20.0
+over_target_parallel = 10.0
