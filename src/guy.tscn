@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://lut/components/root_sprite.gd" type="Script" id=1]
 [ext_resource path="res://lut/components/extents.gd" type="Script" id=2]
@@ -32,7 +32,6 @@
 [ext_resource path="res://src/components/land.gd" type="Script" id=30]
 [ext_resource path="res://lut/components/wall_jump.gd" type="Script" id=31]
 [ext_resource path="res://src/components/snap_to_floor.gd" type="Script" id=32]
-[ext_resource path="res://src/components/camera_to_root_sprite.gd" type="Script" id=33]
 [ext_resource path="res://src/components/hard_fall.gd" type="Script" id=34]
 [ext_resource path="res://src/vfx/dust.tscn" type="PackedScene" id=35]
 [ext_resource path="res://assets/sounds/footstep2.wav" type="AudioStream" id=36]
@@ -5184,8 +5183,6 @@ shape = SubResource( 46 )
 [node name="HighMantleHint" type="Position2D" parent="RootSprite"]
 position = Vector2( 5, -35 )
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="RootSprite"]
-
 [node name="RollJumpDust" parent="RootSprite" instance=ExtResource( 35 )]
 lifetime = 0.25
 direction = Vector2( -5, -1 )
@@ -5207,10 +5204,6 @@ left = "left"
 right = "right"
 up = "up"
 down = "down"
-
-[node name="CameraToRootSprite" type="Node" parent="."]
-script = ExtResource( 33 )
-_remote_transform_path = NodePath("../RootSprite/RemoteTransform2D")
 
 [node name="Velocity" type="Node2D" parent="."]
 script = ExtResource( 4 )

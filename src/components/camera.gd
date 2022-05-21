@@ -1,9 +1,9 @@
 extends Camera2D
 
-
+onready var _follow := NodE.get_child(self, CameraFollow) as CameraFollow
 onready var _shake := NodE.get_child(self, CameraShake) as CameraShake
-onready var _hard_land := NodE.get_sibling(self, HardLand) as HardLand
-onready var _wall_breaker := NodE.get_sibling(self, WallBreaker) as WallBreaker
+onready var _hard_land := NodE.get_child(_follow.target, HardLand) as HardLand
+onready var _wall_breaker := NodE.get_child(_follow.target, WallBreaker) as WallBreaker
 
 func _ready() -> void:
 	_hard_land.connect('landed_hard', self, '_on_landed_hard')

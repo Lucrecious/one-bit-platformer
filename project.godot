@@ -49,6 +49,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://lut/components_3d/pivot_camera.gd"
 }, {
+"base": "Node2D",
+"class": "CameraFollow",
+"language": "GDScript",
+"path": "res://lut/components/camera_follow.gd"
+}, {
+"base": "Node2D",
+"class": "CameraLimits",
+"language": "GDScript",
+"path": "res://lut/components/camera_limits.gd"
+}, {
 "base": "Node",
 "class": "CameraShake",
 "language": "GDScript",
@@ -378,6 +388,8 @@ _global_script_class_icons={
 "BreakableWall": "",
 "ButtonInput": "",
 "Camera3Pivot": "",
+"CameraFollow": "",
+"CameraLimits": "",
 "CameraShake": "",
 "CanvasItEm": "",
 "CollisionExtents": "",
