@@ -15,6 +15,8 @@ onready var _velocity := Components.velocity(get_parent())
 onready var _dodge := NodE.get_sibling(self, Dodge) as Dodge
 onready var _jump := NodE.get_sibling(self, PlatformerJump) as PlatformerJump
 onready var _turner := NodE.get_sibling(self, PlatformerTurner) as PlatformerTurner
+onready var _wall_grip := NodE.get_sibling(self, PlatformerWallGrip) as PlatformerWallGrip
+onready var _wall_jump := NodE.get_sibling(self, PlatformerWallJump) as PlatformerWallJump
 
 var _current_buffer: int = Type.None
 var _buffered_msec := -BUFFER_LIMIT_MSEC
@@ -45,19 +47,40 @@ func _on_action_just_pressed(action: String) -> void:
 	_buffered_msec = OS.get_ticks_msec()
 	
 	ObjEct.disconnect_once(_velocity, 'floor_hit', self, '_on_floor_hit')
+	ObjEct.disconnect_once(_wall_grip, 'gripped', self, '_on_wall_gripped')
 	ObjEct.disconnect_once(_dodge, 'ended', self, '_on_dodge_ended')
 	
 	match _current_buffer:
 		Type.PostLandJump:
 			_velocity.connect('floor_hit', self, '_on_floor_hit', [], CONNECT_ONESHOT)
+			_wall_grip.connect('gripped', self, '_on_wall_gripped', [], CONNECT_ONESHOT)
 		Type.PostDodgeDodge, Type.PostDodgeJump:
 			_dodge.connect('ended', self, '_on_dodge_ended', [], CONNECT_ONESHOT)
 		_:
 			assert(false, 'other buffers not handled yet')
 
+func _on_wall_gripped() -> void:
+	var buffer_type := _current_buffer
+	_current_buffer = Type.None
+	
+	_velocity.disconnect('floor_hit', self, '_on_floor_hit')
+	
+	if not _wall_jump.enabled():
+		return
+	
+	if OS.get_ticks_msec() - _buffered_msec >= BUFFER_LIMIT_MSEC:
+		return
+	
+	if buffer_type == Type.PostLandJump:
+		_wall_jump._on_jump_just_pressed()
+	else:
+		assert(false)
+
 func _on_floor_hit() -> void:
 	var buffer_type := _current_buffer
 	_current_buffer = Type.None
+	
+	_wall_grip.disconnect('gripped', self, '_on_wall_gripped')
 	
 	if not _jump.enabled():
 		return
@@ -74,6 +97,8 @@ func _on_floor_hit() -> void:
 			return
 		
 		_velocity.value.y /= 1.5
+	else:
+		assert(false)
 	
 func _on_dodge_ended() -> void:
 	var buffer_type := _current_buffer
