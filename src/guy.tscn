@@ -3019,7 +3019,7 @@ tracks/30/keys = {
 "times": PoolRealArray( 0, 0.12, 0.25, 0.35 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 21.0, 14.0, 10.0, 1.0 ]
+"values": [ 21.0, 14.0, 10.0, 5.0 ]
 }
 tracks/31/type = "method"
 tracks/31/path = NodePath("Sounds/Roll")
@@ -5186,6 +5186,12 @@ position = Vector2( 5, -35 )
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="RootSprite"]
 
+[node name="RollJumpDust" parent="RootSprite" instance=ExtResource( 35 )]
+lifetime = 0.25
+direction = Vector2( -5, -1 )
+spread = 20.0
+initial_velocity = 200.0
+
 [node name="Dust" parent="." instance=ExtResource( 35 )]
 
 [node name="Controller" type="Node" parent="."]
@@ -5298,8 +5304,8 @@ script = ExtResource( 34 )
 _instant_fall_speed = 100.0
 _priority_node_path = NodePath("../PriorityAnimationPlayer/StartHardFall")
 
-[connection signal="impacted_wall" from="WallBreaker" to="Sounds/WallImpact" method="play"]
 [connection signal="impacted_wall" from="WallBreaker" to="FreezeFramer" method="freeze" binds= [ 0.1 ]]
+[connection signal="impacted_wall" from="WallBreaker" to="Sounds/WallImpact" method="play"]
 [connection signal="direction_changed" from="Controller/Direction1" to="PriorityAnimationPlayer/Run" method="on_condition_changed"]
 [connection signal="direction_changed" from="Controller/Direction1" to="PriorityAnimationPlayer/Slide" method="on_condition_changed"]
 [connection signal="floor_hit" from="Velocity" to="Sounds/Footstep1" method="play_if_not_playing"]
@@ -5322,3 +5328,4 @@ _priority_node_path = NodePath("../PriorityAnimationPlayer/StartHardFall")
 [connection signal="released" from="WallGrip" to="PriorityAnimationPlayer/WallRun" method="on_condition_changed"]
 [connection signal="landed_hard" from="Land" to="Sounds/HardLand" method="play_if_not_playing"]
 [connection signal="landed_hard" from="Land" to="Dust" method="restart"]
+[connection signal="long_jumped" from="Roll" to="RootSprite/RollJumpDust" method="restart"]

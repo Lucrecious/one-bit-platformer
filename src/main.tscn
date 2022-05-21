@@ -470,7 +470,7 @@ position = Vector2( 912, -656 )
 [node name="CharacterLayer" type="CanvasLayer" parent="."]
 
 [node name="Guy" parent="CharacterLayer" instance=ExtResource( 2 )]
-position = Vector2( 624, -224 )
+position = Vector2( 32, 368 )
 collision_mask = 2
 
 [node name="Camera" type="Camera2D" parent="CharacterLayer/Guy"]

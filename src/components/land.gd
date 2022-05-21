@@ -35,7 +35,7 @@ func enable() -> void:
 		_on_floor_left()
 	
 
-func disabled() -> void:
+func disable() -> void:
 	if not _enabled:
 		return
 		
