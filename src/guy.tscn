@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=2]
+[gd_scene load_steps=68 format=2]
 
 [ext_resource path="res://lut/components/root_sprite.gd" type="Script" id=1]
 [ext_resource path="res://lut/components/extents.gd" type="Script" id=2]
@@ -32,6 +32,7 @@
 [ext_resource path="res://src/components/land.gd" type="Script" id=30]
 [ext_resource path="res://lut/components/wall_jump.gd" type="Script" id=31]
 [ext_resource path="res://src/components/snap_to_floor.gd" type="Script" id=32]
+[ext_resource path="res://src/components/deather.gd" type="Script" id=33]
 [ext_resource path="res://src/components/hard_fall.gd" type="Script" id=34]
 [ext_resource path="res://src/vfx/dust.tscn" type="PackedScene" id=35]
 [ext_resource path="res://assets/sounds/footstep2.wav" type="AudioStream" id=36]
@@ -44,6 +45,7 @@
 [ext_resource path="res://src/components/freeze_framer.gd" type="Script" id=43]
 [ext_resource path="res://src/components/guy_input_buffer.gd" type="Script" id=44]
 [ext_resource path="res://src/components/guy_sounds.gd" type="Script" id=45]
+[ext_resource path="res://assets/sounds/death.wav" type="AudioStream" id=46]
 
 [sub_resource type="CircleShape2D" id=56]
 radius = 7.0
@@ -4886,6 +4888,10 @@ extents = Vector2( 5, 5 )
 [sub_resource type="RectangleShape2D" id=46]
 extents = Vector2( 1.5, 6 )
 
+[sub_resource type="CapsuleShape2D" id=57]
+radius = 5.0
+height = 14.0
+
 [node name="Guy" type="KinematicBody2D" groups=["player"]]
 collision_mask = 0
 __meta__ = {
@@ -4915,25 +4921,36 @@ script = ExtResource( 45 )
 
 [node name="Footstep1" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = SubResource( 54 )
+bus = "Sound"
 script = ExtResource( 38 )
 
 [node name="Jump" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = SubResource( 53 )
+bus = "Sound"
 script = ExtResource( 38 )
 
 [node name="HardLand" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource( 39 )
+bus = "Sound"
 script = ExtResource( 38 )
 
 [node name="Roll" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource( 40 )
 volume_db = -4.0
 pitch_scale = 0.9
+bus = "Sound"
 script = ExtResource( 38 )
 
 [node name="WallImpact" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource( 42 )
 pitch_scale = 0.9
+bus = "Sound"
+script = ExtResource( 38 )
+
+[node name="Death" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource( 46 )
+pitch_scale = 0.9
+bus = "Sound"
 script = ExtResource( 38 )
 
 [node name="CollisionExtents" type="CollisionShape2D" parent="."]
@@ -5297,6 +5314,16 @@ script = ExtResource( 34 )
 _instant_fall_speed = 100.0
 _priority_node_path = NodePath("../PriorityAnimationPlayer/StartHardFall")
 
+[node name="Deather" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 128
+monitorable = false
+script = ExtResource( 33 )
+
+[node name="Collision" type="CollisionShape2D" parent="Deather"]
+position = Vector2( 0, -12 )
+shape = SubResource( 57 )
+
 [connection signal="impacted_wall" from="WallBreaker" to="FreezeFramer" method="freeze" binds= [ 0.1 ]]
 [connection signal="impacted_wall" from="WallBreaker" to="Sounds/WallImpact" method="play"]
 [connection signal="direction_changed" from="Controller/Direction1" to="PriorityAnimationPlayer/Run" method="on_condition_changed"]
@@ -5322,3 +5349,4 @@ _priority_node_path = NodePath("../PriorityAnimationPlayer/StartHardFall")
 [connection signal="landed_hard" from="Land" to="Sounds/HardLand" method="play_if_not_playing"]
 [connection signal="landed_hard" from="Land" to="Dust" method="restart"]
 [connection signal="long_jumped" from="Roll" to="RootSprite/RollJumpDust" method="restart"]
+[connection signal="deathed" from="Deather" to="Sounds/Death" method="play"]

@@ -2,7 +2,6 @@ extends AnimatedSprite
 
 signal checkpointed()
 
-
 onready var _area := $Area as Area2D
 
 func _ready() -> void:

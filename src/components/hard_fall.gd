@@ -31,7 +31,7 @@ func disable() -> void:
 		return
 	
 	_controller.disconnect('%s_just_pressed' % [action], self, '_on_hard_fall_just_pressed')
-	_velocity.disconnect('_on_floor_hit', self, '_on_floor_hit')
+	_velocity.disconnect('floor_hit', self, '_on_floor_hit')
 	
 	_enabled = false
 

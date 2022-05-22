@@ -114,6 +114,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://lut/components/death_timer.gd"
 }, {
+"base": "Node2D",
+"class": "Deather",
+"language": "GDScript",
+"path": "res://src/components/deather.gd"
+}, {
 "base": "Node",
 "class": "DebugMultiplayerAPI",
 "language": "GDScript",
@@ -330,6 +335,11 @@ _global_script_classes=[ {
 "path": "res://lut/extension/timer_extension.gd"
 }, {
 "base": "Node",
+"class": "TrEe",
+"language": "GDScript",
+"path": "res://lut/extension/scene_tree_extension.gd"
+}, {
+"base": "Node",
 "class": "TurnBased_Command",
 "language": "GDScript",
 "path": "res://lut/turn_based_nodes/command.gd"
@@ -401,6 +411,7 @@ _global_script_class_icons={
 "Controller_BindedActions": "",
 "Death": "",
 "DeathTimer": "",
+"Deather": "",
 "DebugMultiplayerAPI": "",
 "DirectionalButtonInput": "",
 "Dodge": "",
@@ -444,6 +455,7 @@ _global_script_class_icons={
 "TileMapCursor": "",
 "TileMapGenerator": "",
 "TimEr": "",
+"TrEe": "",
 "TurnBased_Command": "",
 "TurnBased_Manager": "",
 "TurnBased_Player": "",
@@ -464,7 +476,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-LevelEditor="*res://lut/level_editor2/level_editor2.tscn"
+Transitioner="*res://src/transitioner.tscn"
+SoundManager="*res://src/sound_manager.gd"
 
 [display]
 
@@ -571,11 +584,11 @@ editor2_right_click={
 
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Block"
-2d_physics/layer_3="Statics"
 2d_physics/layer_4="MantlePoint"
-2d_physics/layer_5="CameraPoint"
+2d_physics/layer_5="CameraLimits"
 2d_physics/layer_6="Destructible"
 2d_physics/layer_7="BreakableWall"
+2d_physics/layer_8="Death"
 
 [physics]
 
