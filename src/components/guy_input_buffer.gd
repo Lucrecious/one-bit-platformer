@@ -50,12 +50,13 @@ func _on_action_just_pressed(action: String) -> void:
 	ObjEct.disconnect_once(_wall_grip, 'gripped', self, '_on_wall_gripped')
 	ObjEct.disconnect_once(_dodge, 'ended', self, '_on_dodge_ended')
 	
+	# a deferred call is required so that ending signals can finish
 	match _current_buffer:
 		Type.PostLandJump:
-			_velocity.connect('floor_hit', self, '_on_floor_hit', [], CONNECT_ONESHOT)
-			_wall_grip.connect('gripped', self, '_on_wall_gripped', [], CONNECT_ONESHOT)
+			_velocity.connect('floor_hit', self, '_on_floor_hit', [], CONNECT_ONESHOT | CONNECT_DEFERRED)
+			_wall_grip.connect('gripped', self, '_on_wall_gripped', [], CONNECT_ONESHOT | CONNECT_DEFERRED)
 		Type.PostDodgeDodge, Type.PostDodgeJump:
-			_dodge.connect('ended', self, '_on_dodge_ended', [], CONNECT_ONESHOT)
+			_dodge.connect('ended', self, '_on_dodge_ended', [], CONNECT_ONESHOT | CONNECT_DEFERRED)
 		_:
 			assert(false, 'other buffers not handled yet')
 

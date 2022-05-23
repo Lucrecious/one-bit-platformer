@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=69 format=2]
 
 [ext_resource path="res://lut/components/root_sprite.gd" type="Script" id=1]
 [ext_resource path="res://lut/components/extents.gd" type="Script" id=2]
@@ -4888,6 +4888,9 @@ extents = Vector2( 5, 5 )
 [sub_resource type="RectangleShape2D" id=46]
 extents = Vector2( 1.5, 6 )
 
+[sub_resource type="RectangleShape2D" id=58]
+extents = Vector2( 5, 3 )
+
 [sub_resource type="CapsuleShape2D" id=57]
 radius = 5.0
 height = 14.0
@@ -5319,6 +5322,11 @@ collision_layer = 0
 collision_mask = 128
 monitorable = false
 script = ExtResource( 33 )
+
+[node name="CollisionDodge" type="CollisionShape2D" parent="Deather"]
+position = Vector2( 0, -3 )
+shape = SubResource( 58 )
+disabled = true
 
 [node name="Collision" type="CollisionShape2D" parent="Deather"]
 position = Vector2( 0, -12 )
