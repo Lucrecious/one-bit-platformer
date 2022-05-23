@@ -31,7 +31,8 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=2]
 resource_name = "diagonal"
-length = 2.0
+length = 1.5
+step = 0.02
 tracks/0/type = "value"
 tracks/0/path = NodePath("Control/Diagonal:rect_position")
 tracks/0/interp = 2
@@ -39,10 +40,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.54, 0.96, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( -560, -160 ), Vector2( 1056, -1312 ) ]
+"values": [ Vector2( -464, -80 ), Vector2( -320, -160 ), Vector2( 576, -864 ), Vector2( 736, -1008 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Control/Diagonal:rect_rotation")
@@ -51,10 +52,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.54, 0.96, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 44.9999, 44.9999 ]
+"values": [ 44.9999, 44.9999, 44.9999, 44.9999 ]
 }
 tracks/2/type = "method"
 tracks/2/path = NodePath(".")
@@ -63,7 +64,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.76 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
@@ -87,7 +88,7 @@ anchor_bottom = 1.0
 margin_left = -560.0
 margin_top = -160.0
 margin_right = 726.0
-margin_bottom = 1056.0
+margin_bottom = 590.0
 rect_rotation = 44.9999
 color = Color( 0.890196, 0.901961, 1, 1 )
 
@@ -95,6 +96,6 @@ color = Color( 0.890196, 0.901961, 1, 1 )
 margin_left = 1.0
 margin_top = 1.0
 margin_right = 1285.0
-margin_bottom = 1215.0
+margin_bottom = 749.0
 rect_pivot_offset = Vector2( 642, 607 )
 color = Color( 0.0784314, 0.0627451, 0.0745098, 1 )
