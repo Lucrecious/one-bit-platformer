@@ -22,13 +22,18 @@ var _current_buffer: int = Type.None
 var _buffered_msec := -BUFFER_LIMIT_MSEC
 
 var _last_dodge_start_physics_frame := -1
+var _last_wall_released_physics_frame := -1
 
 func _ready() -> void:
 	_dodge.connect('started', self, '_on_dodge_started')
+	_wall_grip.connect('released', self, '_on_wall_released')
 	_controller.connect('action_just_pressed', self, '_on_action_just_pressed')
 
 func _on_dodge_started() -> void:
 	_last_dodge_start_physics_frame = Engine.get_physics_frames()
+
+func _on_wall_released() -> void:
+	_last_wall_released_physics_frame = Engine.get_physics_frames()
 
 func _on_action_just_pressed(action: String) -> void:
 	# If the input causes the dodge, it doesn't count and does not buffer
@@ -37,7 +42,9 @@ func _on_action_just_pressed(action: String) -> void:
 			_current_buffer = Type.PostDodgeJump
 		elif action == _dodge.action_name:
 			_current_buffer = Type.PostDodgeDodge
-	elif not _body.is_on_floor():
+	elif not _body.is_on_floor()\
+		and not _wall_grip.is_gripping()\
+		and Engine.get_physics_frames() != _last_wall_released_physics_frame:
 		if action == 'jump':
 			_current_buffer = Type.PostLandJump
 	

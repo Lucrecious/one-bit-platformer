@@ -1,9 +1,16 @@
 extends Node2D
 
+export(bool) var spawn_at_start := false
+
 var _last_checkpoint_position := Vector2.ZERO
 
 func _ready() -> void:
 	var player := TrEe.get_single_node_in_group(get_tree(), 'player') as Node2D
+	
+	if spawn_at_start:
+		var player_spawn := TrEe.get_single_node_in_group(get_tree(), 'player_spawn') as Node2D
+		player.global_position = player_spawn.global_position
+	
 	_last_checkpoint_position = player.global_position
 	
 	var camera := TrEe.get_single_node_in_group(get_tree(), 'main_camera') as Camera2D
