@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=2]
+[gd_scene load_steps=71 format=2]
 
 [ext_resource path="res://lut/components/root_sprite.gd" type="Script" id=1]
 [ext_resource path="res://lut/components/extents.gd" type="Script" id=2]
@@ -4882,6 +4882,174 @@ tracks/29/keys = {
 "values": [ 0.0, -20.1413, -23.9842, -23.9842, -23.9842, -20.1413, -20.1413, -42.2165 ]
 }
 
+[sub_resource type="Shader" id=59]
+code = "shader_type canvas_item;
+
+const vec4 background = vec4(1., 1., 1., 0.);
+
+float dist(vec4 c1, vec4 c2) {
+	return (c1 == c2) ? 0.0 : abs(c1.r - c2.r) + abs(c1.g - c2.g) + abs(c1.b - c2.b);
+}
+
+bool similar(vec4 c1, vec4 c2, vec4 input) {
+	return (c1 == c2 || (dist(c1, c2) <= dist(input, c2) && dist(c1, c2) <= dist(input, c1)));
+}
+
+bool different(vec4 c1, vec4 c2, vec4 input) {
+	return !similar(c1, c2, input);
+}
+
+// rotsprite 2x enlargement algorithm:
+// suppose we are looking at input pixel cE which is surrounded by 8 other 
+// pixels:
+//  cA cB cC
+//  cD cE cF
+//  cG cH cI
+// and for that 1 input pixel cE we want to output 4 pixels oA, oB, oC, and oD:
+//  oA oB
+//  oC oD
+//vec4 scale2x(sampler2D tex, vec2 uv, vec2 pixel_size) {
+//	vec4 input = texture(tex, uv);
+//
+//	vec4 cD = texture(tex, uv + pixel_size * vec2(-1., .0));
+//	cD.a = 1.0;
+//	vec4 cF = texture(tex, uv + pixel_size * vec2(1., .0));
+//	cF.a = 1.0;
+//	vec4 cH = texture(tex, uv + pixel_size * vec2(.0, 1.));
+//	cH.a = 1.0;
+//	vec4 cB = texture(tex, uv + pixel_size * vec2(.0, -1.));
+//	cB.a = 1.0;
+//	vec4 cA = texture(tex, uv + pixel_size * vec2(-1., -1.));
+//	cA.a = 1.0;
+//	vec4 cI = texture(tex, uv + pixel_size * vec2(1., 1.));
+//	cI.a = 1.0;
+//	vec4 cG = texture(tex, uv + pixel_size * vec2(-1., 1.));
+//	cG.a = 1.0;
+//	vec4 cC = texture(tex, uv + pixel_size * vec2(1., -1.));
+//	cC.a = 1.0;
+//
+//	if (different(cD,cF, input)
+//     && different(cH,cB, input)
+//     && ((similar(input, cD, input) || similar(input, cH, input) || similar(input, cF, input) || similar(input, cB, input) ||
+//         ((different(cA, cI, input) || similar(input, cG, input) || similar(input, cC, input)) &&
+//          (different(cG, cC, input) || similar(input, cA, input) || similar(input, cI, input))))))
+//    {
+//		vec2 unit = uv - (floor(uv / pixel_size) * pixel_size);
+//		vec2 pixel_half_size = pixel_size / 2.0;
+//		if (unit.x < pixel_half_size.x && unit.y < pixel_half_size.y) {
+//			return ((similar(cB, cD, input) && ((different(input, cA, input) || different(cB, background, input)) && (different(input, cA, input) || different(input, cI, input) || different(cB, cC, input) || different(cD, cG, input)))) ? cB : input);
+//		}
+//
+//		if (unit.x >= pixel_half_size.x && unit.y < pixel_half_size.y) {
+//			return ((similar(cF, cB, input) && ((different(input, cC, input) || different(cF, background, input)) && (different(input, cC, input) || different(input, cG, input) || different(cF, cI, input) || different(cB, cA, input)))) ? cF : input);
+//		}
+//
+//		if (unit.x < pixel_half_size.x && unit.y >= pixel_half_size.y) {
+//			return ((similar(cD, cH, input) && ((different(input, cG, input) || different(cD, background, input)) && (different(input, cG, input) || different(input, cC, input) || different(cD, cA, input) || different(cH, cI, input)))) ? cD : input);
+//		}
+//
+//        return ((similar(cH, cF, input) && ((different(input, cI, input) || different(cH, background, input)) && (different(input, cI, input) || different(input, cA, input) || different(cH, cG, input) || different(cF, cC, input)))) ? cH : input);
+//    }
+//
+//	return input;
+//}
+
+// rotsprite 3x enlargement algorithm:
+// suppose we are looking at input pixel cE which is surrounded by 8 other 
+// pixels:
+//  cA cB cC
+//  cD cE cF
+//  cG cH cI
+// and for that 1 input pixel cE we want to output 4 pixels oA, oB, oC, and oD:
+//  E0 E1 E2
+//  E3 E4 E5
+//  E6 E7 E8
+vec4 scale3x(sampler2D tex, vec2 uv, vec2 pixel_size) {
+	vec4 cE = texture(tex, uv);
+	cE = cE.a == 0.0 ? background : cE;
+	
+	vec4 cD = texture(tex, uv + pixel_size * vec2(-1., .0));
+	cD = cD.a == 0.0 ? background : cD;
+	vec4 cF = texture(tex, uv + pixel_size * vec2(1., .0));
+	cF = cF.a == 0.0 ? background : cF;
+	vec4 cH = texture(tex, uv + pixel_size * vec2(.0, 1.));
+	cH = cH.a == 0.0 ? background : cH;
+	vec4 cB = texture(tex, uv + pixel_size * vec2(.0, -1.));
+	cB = cB.a == 0.0 ? background : cB;
+	vec4 cA = texture(tex, uv + pixel_size * vec2(-1., -1.));
+	cA = cA.a == 0.0 ? background : cA;
+	vec4 cI = texture(tex, uv + pixel_size * vec2(1., 1.));
+	cI = cI.a == 0.0 ? background : cI;
+	vec4 cG = texture(tex, uv + pixel_size * vec2(-1., 1.));
+	cG = cG.a == 0.0 ? background : cG;
+	vec4 cC = texture(tex, uv + pixel_size * vec2(1., -1.));
+	cC = cC.a == 0.0 ? background : cC;
+	
+	if (different(cD,cF, cE)
+     && different(cH,cB, cE)
+     && ((similar(cE, cD, cE) || similar(cE, cH, cE) || similar(cE, cF, cE) || similar(cE, cB, cE) ||
+         ((different(cA, cI, cE) || similar(cE, cG, cE) || similar(cE, cC, cE)) &&
+          (different(cG, cC, cE) || similar(cE, cA, cE) || similar(cE, cI, cE))))))
+    {
+		vec2 unit = uv - (floor(uv / pixel_size) * pixel_size);
+		vec2 pixel_3_size = pixel_size / 3.0;
+		
+		// E0
+		if (unit.x < pixel_3_size.x && unit.y < pixel_3_size.y) {
+			return similar(cB, cD, cE) ? cB : cE;
+		}
+		
+		
+		// E1
+		if (unit.x < pixel_3_size.x * 2.0 && unit.y < pixel_3_size.y) {
+			return (similar(cB, cD, cE) && different(cE, cC, cE))
+				|| (similar(cB, cF, cE) && different(cE, cA, cE)) ? cB : cE;
+		}
+		
+		// E2
+		if (unit.y < pixel_3_size.y) {
+			return similar(cB, cF, cE) ? cB : cE;
+		}
+		
+		// E3
+		if (unit.x < pixel_3_size.x && unit.y < pixel_3_size.y * 2.0) {
+			return (similar(cB, cD, cE) && different(cE, cG, cE)
+				|| (similar(cH, cD, cE) && different(cE, cA, cE))) ? cD : cE;
+		}
+		
+		// E5
+		if (unit.x >= pixel_3_size.x * 2.0 && unit.x < pixel_3_size.x * 3.0 && unit.y < pixel_3_size.y * 2.0) {
+			return (similar(cB, cF, cE) && different(cE, cI, cE))
+				|| (similar(cH, cF, cE) && different(cE, cC, cE)) ? cF : cE;
+		}
+		
+		// E6
+		if (unit.x < pixel_3_size.x && unit.y >= pixel_3_size.y * 2.0) {
+			return similar(cH, cD, cE) ? cH : cE;
+		}
+		
+		// E7
+		if (unit.x < pixel_3_size.x * 2.0 && unit.y >= pixel_3_size.y * 2.0) {
+			return (similar(cH, cD, cE) && different(cE, cI, cE))
+				|| (similar(cH, cF, cE) && different(cE, cG, cE)) ? cH : cE;
+		}
+		
+		// E8
+		if (unit.y >= pixel_3_size.y * 2.0) {
+			return similar(cH, cF, cE) ? cH : cE;
+		}
+    }
+	
+	return cE;
+}
+
+void fragment() {
+	COLOR = scale3x(TEXTURE, UV, TEXTURE_PIXEL_SIZE);
+}"
+
+[sub_resource type="ShaderMaterial" id=60]
+shader = SubResource( 59 )
+
 [sub_resource type="RectangleShape2D" id=44]
 extents = Vector2( 5, 5 )
 
@@ -5046,9 +5214,11 @@ animation = "start_fast_fall"
 script = ExtResource( 1 )
 
 [node name="root" type="Node2D" parent="RootSprite"]
+material = SubResource( 60 )
 position = Vector2( 2, -16 )
 
 [node name="body" type="Sprite" parent="RootSprite/root"]
+use_parent_material = true
 position = Vector2( -2, 5.55939 )
 rotation = 0.119031
 texture = ExtResource( 20 )
@@ -5056,6 +5226,7 @@ offset = Vector2( 2, -5 )
 
 [node name="upper_leg_back" type="Sprite" parent="RootSprite/root/body"]
 show_behind_parent = true
+use_parent_material = true
 position = Vector2( 2, 0 )
 rotation = -0.795029
 texture = ExtResource( 27 )
@@ -5066,6 +5237,7 @@ __meta__ = {
 }
 
 [node name="lower_leg_back" type="Sprite" parent="RootSprite/root/body/upper_leg_back"]
+use_parent_material = true
 position = Vector2( 0, 5 )
 rotation = 0.134676
 texture = ExtResource( 19 )
@@ -5083,6 +5255,7 @@ __meta__ = {
 
 [node name="upper_arm_back" type="Sprite" parent="RootSprite/root/body"]
 show_behind_parent = true
+use_parent_material = true
 position = Vector2( -2.15869, -10.2024 )
 rotation = 1.14374
 texture = ExtResource( 26 )
@@ -5094,6 +5267,7 @@ __meta__ = {
 
 [node name="upper_arm_back" type="Sprite" parent="RootSprite/root/body/upper_arm_back"]
 show_behind_parent = true
+use_parent_material = true
 position = Vector2( -1, 5 )
 rotation = -0.234492
 texture = ExtResource( 21 )
@@ -5110,6 +5284,7 @@ __meta__ = {
 }
 
 [node name="head" type="Sprite" parent="RootSprite/root/body"]
+use_parent_material = true
 position = Vector2( 1, -13 )
 texture = ExtResource( 23 )
 offset = Vector2( 1, 8 )
@@ -5125,6 +5300,7 @@ __meta__ = {
 }
 
 [node name="upper_leg_front" type="Sprite" parent="RootSprite/root/body"]
+use_parent_material = true
 position = Vector2( -3, 0 )
 rotation = 0.607624
 texture = ExtResource( 22 )
@@ -5136,6 +5312,7 @@ __meta__ = {
 
 [node name="lower_leg_front" type="Sprite" parent="RootSprite/root/body/upper_leg_front"]
 show_behind_parent = true
+use_parent_material = true
 position = Vector2( 0, 5 )
 rotation = 0.867107
 texture = ExtResource( 3 )
@@ -5152,6 +5329,7 @@ __meta__ = {
 }
 
 [node name="upper_arm_front" type="Sprite" parent="RootSprite/root/body"]
+use_parent_material = true
 position = Vector2( 2.17817, -9.11137 )
 rotation = -0.890481
 texture = ExtResource( 24 )
@@ -5162,6 +5340,7 @@ __meta__ = {
 }
 
 [node name="lower_arm_front" type="Sprite" parent="RootSprite/root/body/upper_arm_front"]
+use_parent_material = true
 position = Vector2( -1, 5 )
 rotation = -0.453447
 texture = ExtResource( 25 )

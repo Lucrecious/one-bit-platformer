@@ -1042,7 +1042,6 @@ rotation = 1.5708
 
 [node name="SpikedSpinner26" parent="OutlineLayer/Path/PathFollow" instance=ExtResource( 4 )]
 position = Vector2( 0.000488281, -0.000244141 )
-rotation = -1.21896e-07
 
 [node name="Path2" type="Path2D" parent="OutlineLayer"]
 position = Vector2( 4800, -2912 )
@@ -1062,7 +1061,6 @@ rotation = 1.5708
 
 [node name="SpikedSpinner26" parent="OutlineLayer/Path2/PathFollow" instance=ExtResource( 4 )]
 position = Vector2( 0.000488281, -0.000244141 )
-rotation = -1.21896e-07
 
 [node name="Path3" type="Path2D" parent="OutlineLayer"]
 position = Vector2( 4784, -2912 )
@@ -1082,7 +1080,6 @@ rotation = 1.5708
 
 [node name="SpikedSpinner26" parent="OutlineLayer/Path3/PathFollow" instance=ExtResource( 4 )]
 position = Vector2( 0.000488281, -0.000244141 )
-rotation = -1.21896e-07
 
 [node name="Path4" type="Path2D" parent="OutlineLayer"]
 position = Vector2( 4768, -2912 )
@@ -1102,7 +1099,6 @@ rotation = 1.5708
 
 [node name="SpikedSpinner26" parent="OutlineLayer/Path4/PathFollow" instance=ExtResource( 4 )]
 position = Vector2( 0.000488281, -0.000244141 )
-rotation = -1.21896e-07
 
 [node name="Path5" type="Path2D" parent="OutlineLayer"]
 position = Vector2( 4752, -2912 )
@@ -1122,7 +1118,6 @@ rotation = 1.5708
 
 [node name="SpikedSpinner26" parent="OutlineLayer/Path5/PathFollow" instance=ExtResource( 4 )]
 position = Vector2( 0.000488281, -0.000244141 )
-rotation = -1.21896e-07
 
 [node name="Path6" type="Path2D" parent="OutlineLayer"]
 position = Vector2( 4736, -2912 )
@@ -1142,7 +1137,6 @@ rotation = 1.5708
 
 [node name="SpikedSpinner26" parent="OutlineLayer/Path6/PathFollow" instance=ExtResource( 4 )]
 position = Vector2( 0.000488281, -0.000244141 )
-rotation = -1.21896e-07
 
 [node name="Path7" type="Path2D" parent="OutlineLayer"]
 position = Vector2( 4720, -2912 )
@@ -1162,7 +1156,6 @@ rotation = 1.5708
 
 [node name="SpikedSpinner26" parent="OutlineLayer/Path7/PathFollow" instance=ExtResource( 4 )]
 position = Vector2( 0.000488281, -0.000244141 )
-rotation = -1.21896e-07
 
 [node name="Path8" type="Path2D" parent="OutlineLayer"]
 position = Vector2( 4704, -2912 )
@@ -1182,7 +1175,6 @@ rotation = 1.5708
 
 [node name="SpikedSpinner26" parent="OutlineLayer/Path8/PathFollow" instance=ExtResource( 4 )]
 position = Vector2( 0.000488281, -0.000244141 )
-rotation = -1.21896e-07
 
 [node name="Path9" type="Path2D" parent="OutlineLayer"]
 position = Vector2( 4688, -2912 )
@@ -1202,7 +1194,6 @@ rotation = 1.5708
 
 [node name="SpikedSpinner26" parent="OutlineLayer/Path9/PathFollow" instance=ExtResource( 4 )]
 position = Vector2( 0.000488281, -0.000244141 )
-rotation = -1.21896e-07
 
 [node name="Path10" type="Path2D" parent="OutlineLayer"]
 position = Vector2( 4672, -2912 )
@@ -1222,7 +1213,6 @@ rotation = 1.5708
 
 [node name="SpikedSpinner26" parent="OutlineLayer/Path10/PathFollow" instance=ExtResource( 4 )]
 position = Vector2( 0.000488281, -0.000244141 )
-rotation = -1.21896e-07
 
 [node name="Path11" type="Path2D" parent="OutlineLayer"]
 position = Vector2( 4656, -2912 )
@@ -1242,7 +1232,6 @@ rotation = 1.5708
 
 [node name="SpikedSpinner26" parent="OutlineLayer/Path11/PathFollow" instance=ExtResource( 4 )]
 position = Vector2( 0.000488281, -0.000244141 )
-rotation = -1.21896e-07
 
 [node name="Path12" type="Path2D" parent="OutlineLayer"]
 position = Vector2( 4640, -2912 )
@@ -1261,7 +1250,6 @@ rotation = 1.5708
 
 [node name="SpikedSpinner26" parent="OutlineLayer/Path12/PathFollow" instance=ExtResource( 4 )]
 position = Vector2( 0.000488281, -0.000244141 )
-rotation = -1.21896e-07
 
 [node name="CameraLimits" type="Area2D" parent="."]
 collision_layer = 16
